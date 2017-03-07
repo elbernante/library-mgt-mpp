@@ -69,3 +69,6 @@ local.properties
 .cache-main
 .scala_dependencies
 .worksheet
+
+# Project specific
+!*/lib/*.jar
