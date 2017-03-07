@@ -1,6 +1,6 @@
-package model.dao.base;
+package dao.base;
 
-import model.dao.DaoSqlite;
+import dao.SqliteDao;
 
 public class DaoSession {
 	public static enum DbType {SQLITE};
@@ -11,7 +11,7 @@ public class DaoSession {
 	private DaoSession(DbType dbType, String url) {
 		switch (dbType) {
 		case SQLITE:
-			db = DaoSqlite.getInstance(url);
+			db = SqliteDao.getInstance(url);
 			db.onLoad();
 			break;
 

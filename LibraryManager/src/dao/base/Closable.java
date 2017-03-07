@@ -1,4 +1,4 @@
-package model.dao.base;
+package dao.base;
 
 public interface Closable {
 	public void onLoad();

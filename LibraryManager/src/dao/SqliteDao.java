@@ -1,25 +1,25 @@
-package model.dao;
+package dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-import model.dao.base.DataAccessObject;
+import dao.base.DataAccessObject;
 
-public class DaoSqlite implements DataAccessObject {
+public class SqliteDao implements DataAccessObject {
 	
-	private static DaoSqlite instance = null;
+	private static SqliteDao instance = null;
 	private String url;
 	private Connection connection;
 	
-	public static DaoSqlite getInstance(String url) {
+	public static SqliteDao getInstance(String url) {
 		if (instance == null) {
-			instance = new DaoSqlite(url);
+			instance = new SqliteDao(url);
 		}
 		return instance;
 	}
 	
-	private DaoSqlite(String dbfilename) {
+	private SqliteDao(String dbfilename) {
 		this.url = dbfilename;
 	}
 	

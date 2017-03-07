@@ -1,9 +1,9 @@
 package application;
 	
+import dao.base.DaoSession;
+import dao.base.DaoSession.DbType;
 import javafx.application.Application;
 import javafx.stage.Stage;
-import model.dao.base.DaoSession;
-import model.dao.base.DaoSession.DbType;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 

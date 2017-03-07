@@ -1,4 +1,4 @@
-package model.dao.base;
+package dao.base;
 
 public interface DataAccessObject extends Closable {
 	public void getPerson();
