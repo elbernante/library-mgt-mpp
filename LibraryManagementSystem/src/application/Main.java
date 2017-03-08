@@ -10,6 +10,7 @@ import javafx.stage.Stage;
 
 
 public class Main extends Application {
+	public static final String appName = "Library Management System";
 	@Override
 	public void start(Stage primaryStage) {
 		DaoSession.start(DbType.SQLITE, "library_manager.db");
