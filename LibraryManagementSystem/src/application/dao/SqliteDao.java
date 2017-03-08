@@ -58,15 +58,15 @@ public class SqliteDao implements DataAccessObject {
 	}
 
 	@Override
-	public boolean authenticate(String username, String passwordHash) {
-		String query = "SELECT username FROM user WHERE username=? AND password=? LIMIT 1";
+	public boolean authenticate(String userId, String passwordHash) {
+		String query = "SELECT user_id FROM user WHERE user_id=? AND password=? LIMIT 1";
 		
 		PreparedStatement stmt = null;
 		boolean isAuthenticated = false;
 		
 		try {
 			stmt = connection.prepareStatement(query);
-			stmt.setString(1,  username);
+			stmt.setString(1, userId);
 			stmt.setString(2, passwordHash);
 			ResultSet rs = stmt.executeQuery();
 			if (rs.next()) isAuthenticated = true;			
