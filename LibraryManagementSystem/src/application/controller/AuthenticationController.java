@@ -1,12 +1,9 @@
 package application.controller;
 
+import application.Session;
 import application.dao.base.DaoSession;
 import application.util.Hash;
 import application.util.WindowUtil;
-
-import java.math.BigInteger;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
@@ -40,10 +37,13 @@ public class AuthenticationController {
 
 	@FXML
 	void signIn(ActionEvent event) {
+		String userId = username.getText();
+		String passwordHash = Hash.md5(password.getText());
+		
 		showErrorMessage(false);
-		if (DaoSession.getDb().authenticate(username.getText(), Hash.md5(password.getText()))) {
-    		// TODO: Set current session user
+		if (DaoSession.getDb().authenticate(userId, passwordHash)) {
     		close();
+    		Session.setCurrentUser(userId);
     		WindowUtil.loadWindow("scene/Main.fxml", "Login", false);
     	} else {
     		showErrorMessage(true);

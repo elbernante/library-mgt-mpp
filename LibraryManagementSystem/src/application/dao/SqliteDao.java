@@ -8,6 +8,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import model.*;
+
 public class SqliteDao implements DataAccessObject {
 
 	private static SqliteDao instance = null;
@@ -75,5 +77,39 @@ public class SqliteDao implements DataAccessObject {
 		} 
 		
 		return isAuthenticated;
+	}
+
+	@Override
+	public User getUserById(String userId) {
+		String user_query = "SELECT user_id, password, firstname, lastname  FROM user WHERE user_id=? LIMIT 1";
+		String role_query = "SELECT role_id FROM user_role WHERE user_id=?";
+
+		User user = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		
+		try {
+			stmt = connection.prepareStatement(user_query);
+			stmt.setString(1, userId);
+			rs = stmt.executeQuery();
+			if (rs.next()) {
+				user = new User();
+				user.setUserId(rs.getString("user_id"));
+				user.setPassword(rs.getString("password"));
+				user.setFirstName(rs.getString("firstname"));
+				user.setLastName(rs.getString("lastname"));
+				stmt.close();
+				rs.close();
+				
+				stmt = connection.prepareStatement(role_query);
+				stmt.setString(1, userId);
+				rs = stmt.executeQuery();
+				while (rs.next()) user.addRole(rs.getInt("role_id"));
+			}
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		
+		return user;
 	}
 }
