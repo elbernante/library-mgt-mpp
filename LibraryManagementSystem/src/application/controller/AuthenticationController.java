@@ -48,6 +48,8 @@ public class AuthenticationController {
 			WindowUtil.loadWindow("scene/Main.fxml", Main.appName, false);
 		} else if (user.isLibrarian()) {
 			WindowUtil.loadWindow("scene/CheckoutForm.fxml", Main.appName, false);
+		} else {
+			WindowUtil.messageBox("No roles assigned to user");
 		}
 	}
 	

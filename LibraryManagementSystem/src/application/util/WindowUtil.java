@@ -23,5 +23,11 @@ public class WindowUtil {
 			Logger.getLogger(WindowUtil.class.getName()).log(Level.SEVERE, null, ex);
 		}
 	}
+	
+	public static void messageBox(String message) {
+		// TODO: show alert message
+		System.out.println("Message box: " + message);
+		
+	}
 
 }
