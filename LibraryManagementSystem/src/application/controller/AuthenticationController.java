@@ -3,6 +3,7 @@ package application.controller;
 import application.Main;
 import application.Session;
 import application.dao.base.DaoSession;
+import application.model.User;
 import application.util.Hash;
 import application.util.WindowUtil;
 
@@ -15,7 +16,6 @@ import javafx.scene.control.Label;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import model.User;
 
 public class AuthenticationController {
 

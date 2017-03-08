@@ -1,6 +1,7 @@
 package application.dao;
 
 import application.dao.base.DataAccessObject;
+import application.model.User;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -8,7 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import model.*;
+import application.model.*;
 
 public class SqliteDao implements DataAccessObject {
 

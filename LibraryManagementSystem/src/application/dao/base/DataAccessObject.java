@@ -1,6 +1,7 @@
 package application.dao.base;
 
-import model.*;
+import application.model.User;
+import application.model.*;
 
 public interface DataAccessObject extends Closable {
 	public void getPerson();

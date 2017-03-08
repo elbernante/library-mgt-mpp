@@ -1,7 +1,7 @@
 package application;
 
 import application.dao.base.DaoSession;
-import model.User;
+import application.model.User;
 
 public class Session {
 	
