@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.BorderPane?>
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0"
+			prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1"
+			fx:controller="application.controller.BookListController">
+	<center>
+		<TableView prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+			<columns>
+				<TableColumn prefWidth="75.0" text="ISBN"/>
+				<TableColumn prefWidth="205.0" text="Title"/>
+				<TableColumn prefWidth="189.0" text="Authors"/>
+			</columns>
+		</TableView>
+	</center>
+	<top>
+		<ToolBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+			<items>
+				<JFXButton onAction="#openBookAddWindow" text="Add"/>
+				<JFXButton text="Delete"/>
+			</items>
+			<BorderPane.margin>
+				<Insets/>
+			</BorderPane.margin>
+		</ToolBar>
+	</top>
+</BorderPane>
