@@ -8,7 +8,7 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 
-import dao.base.DaoSession;
+import application.dao.base.DaoSession;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 

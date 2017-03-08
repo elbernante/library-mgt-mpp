@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="702.0"
+			prefWidth="618.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1"
+			fx:controller="application.controller.MainController">
+	<center>
+		<VBox prefHeight="686.0" prefWidth="598.0" BorderPane.alignment="CENTER">
+			<children>
+				<VBox prefHeight="289.0" prefWidth="618.0">
+					<children>
+						<JFXTextField labelFloat="true" prefHeight="45.0" prefWidth="598.0"
+									  promptText="Please enter Member ID to search">
+							<VBox.margin>
+								<Insets bottom="20.0" top="10.0"/>
+							</VBox.margin>
+						</JFXTextField>
+						<HBox prefHeight="23.0" prefWidth="352.0" spacing="10.0">
+							<children>
+								<Label text="Member Name:"/>
+								<Label text="&lt;member name&gt;">
+									<HBox.margin>
+										<Insets bottom="10.0"/>
+									</HBox.margin>
+									<font>
+										<Font name="System Bold" size="13.0"/>
+									</font>
+								</Label>
+							</children>
+							<VBox.margin>
+								<Insets bottom="10.0"/>
+							</VBox.margin>
+						</HBox>
+						<TableView prefHeight="279.0" prefWidth="598.0">
+							<columns>
+								<TableColumn prefWidth="75.0" text="ISBN"/>
+								<TableColumn prefWidth="75.0" text="Copy ID"/>
+								<TableColumn prefWidth="194.0" text="Title"/>
+								<TableColumn prefWidth="108.0" text="Due Date"/>
+							</columns>
+							<VBox.margin>
+								<Insets/>
+							</VBox.margin>
+						</TableView>
+					</children>
+					<VBox.margin>
+						<Insets bottom="20.0"/>
+					</VBox.margin>
+				</VBox>
+				<VBox prefHeight="301.0" prefWidth="598.0">
+					<children>
+						<JFXTextField labelFloat="true" prefHeight="42.0" prefWidth="598.0"
+									  promptText="Please enter ISBN to search">
+							<VBox.margin>
+								<Insets bottom="10.0" top="10.0"/>
+							</VBox.margin>
+						</JFXTextField>
+						<TableView prefHeight="255.0" prefWidth="598.0">
+							<columns>
+								<TableColumn prefWidth="94.0" text="Copy ID"/>
+								<TableColumn prefWidth="203.0" text="Title"/>
+								<TableColumn prefWidth="100.0" text="Available"/>
+							</columns>
+						</TableView>
+					</children>
+					<VBox.margin>
+						<Insets bottom="10.0"/>
+					</VBox.margin>
+				</VBox>
+				<HBox alignment="CENTER" prefHeight="63.0" prefWidth="598.0">
+					<children>
+						<JFXButton defaultButton="true" prefHeight="45.0" prefWidth="130.0"
+								   style="-fx-background-color: #424242;" text="Checkout" textFill="WHITE">
+							<graphic>
+								<ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+									<image>
+										<Image url="@../icons/issue.png"/>
+									</image>
+								</ImageView>
+							</graphic>
+						</JFXButton>
+					</children>
+				</HBox>
+			</children>
+			<BorderPane.margin>
+				<Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+			</BorderPane.margin>
+		</VBox>
+	</center>
+</BorderPane>

@@ -1,4 +1,6 @@
-package dao;
+package application.dao;
+
+import application.dao.base.DataAccessObject;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -6,25 +8,23 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import dao.base.DataAccessObject;
-
 public class SqliteDao implements DataAccessObject {
-	
+
 	private static SqliteDao instance = null;
 	private String url;
 	private Connection connection;
-	
+
 	public static SqliteDao getInstance(String url) {
 		if (instance == null) {
 			instance = new SqliteDao(url);
 		}
 		return instance;
 	}
-	
+
 	private SqliteDao(String dbfilename) {
 		this.url = dbfilename;
 	}
-	
+
 	@Override
 	public void onLoad() {
 		try {
@@ -34,7 +34,7 @@ public class SqliteDao implements DataAccessObject {
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
 			System.exit(1);
 		}
-		
+
 		System.out.println("Successfully connected to: " + url);
 	}
 
@@ -47,7 +47,7 @@ public class SqliteDao implements DataAccessObject {
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
 			System.exit(1);
 		}
-		
+
 		System.out.println("Successfully disconnected from: " + url);
 	}
 
@@ -76,5 +76,4 @@ public class SqliteDao implements DataAccessObject {
 		
 		return isAuthenticated;
 	}
-	
 }

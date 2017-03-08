@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.*?>
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="226.0"
+			prefWidth="384.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+	<center>
+		<VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+			<children>
+				<JFXTextField labelFloat="true" promptText="ISBN">
+					<VBox.margin>
+						<Insets bottom="20.0" top="10.0"/>
+					</VBox.margin>
+				</JFXTextField>
+				<JFXTextField labelFloat="true" promptText="Title">
+					<VBox.margin>
+						<Insets bottom="20.0" top="10.0"/>
+					</VBox.margin>
+				</JFXTextField>
+				<HBox prefHeight="48.0" prefWidth="364.0">
+					<children>
+						<JFXTextField editable="false" labelFloat="true" prefHeight="25.0" prefWidth="314.0"
+									  promptText="Authors"/>
+						<JFXButton prefHeight="27.0" prefWidth="82.0" text="Choose"/>
+					</children>
+					<VBox.margin>
+						<Insets top="10.0"/>
+					</VBox.margin>
+				</HBox>
+				<HBox alignment="BOTTOM_RIGHT" prefHeight="43.0" prefWidth="364.0">
+					<children>
+						<JFXButton prefHeight="30.0" prefWidth="80.0" text="OK"/>
+						<JFXButton prefHeight="30.0" prefWidth="80.0" text="Cancel"/>
+					</children>
+				</HBox>
+			</children>
+		</VBox>
+	</center>
+	<padding>
+		<Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+	</padding>
+</BorderPane>

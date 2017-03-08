@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.HBox?>
+<HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+	  prefHeight="124.0" prefWidth="671.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1"
+	  fx:controller="application.controller.MainController">
+	<children>
+		<JFXButton onAction="#openCheckoutWindow" prefHeight="60.0" prefWidth="185.0"
+				   style="-fx-background-color: #424242;" text="CHECKOUT BOOKS" textFill="WHITE">
+			<HBox.margin>
+				<Insets right="20.0"/>
+			</HBox.margin>
+			<graphic>
+				<ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+					<image>
+						<Image url="@../icons/issue.png"/>
+					</image>
+				</ImageView>
+			</graphic>
+		</JFXButton>
+		<JFXButton onAction="#openBookListWindow" prefHeight="60.0" prefWidth="185.0" text="MANAGE BOOKS">
+			<HBox.margin>
+				<Insets right="20.0"/>
+			</HBox.margin>
+			<graphic>
+				<ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+					<image>
+						<Image url="@../icons/add_book.png"/>
+					</image>
+				</ImageView>
+			</graphic>
+		</JFXButton>
+		<JFXButton onAction="#openMemberListWindow" prefHeight="60.0" prefWidth="185.0" text="MANAGE MEMBERS">
+			<HBox.margin>
+				<Insets right="20.0"/>
+			</HBox.margin>
+			<graphic>
+				<ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+					<image>
+						<Image url="@../icons/add_mem.png"/>
+					</image>
+				</ImageView>
+			</graphic>
+		</JFXButton>
+	</children>
+</HBox>
