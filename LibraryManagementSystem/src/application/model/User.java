@@ -9,11 +9,11 @@ public class User {
 	private String firstName;
 	private String lastName;
 	private Set<Integer> roles;
-	private Address address;
+	private UserAddress address;
 	
 	public User() {
 		this.roles = new HashSet<>();
-		this.address = new Address();
+		this.address = new UserAddress();
 	}
 
 	public String getUserId() {
@@ -56,11 +56,11 @@ public class User {
 		roles.add(roleId);
 	}
 	
-	public Address getAddress() {
+	public UserAddress getAddress() {
 		return address;
 	}
 
-	public void setAddress(Address address) {
+	public void setAddress(UserAddress address) {
 		this.address = address;
 	}
 

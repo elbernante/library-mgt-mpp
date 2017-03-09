@@ -111,12 +111,12 @@ public class SqliteDao implements DataAccessObject {
 				
 				// get address
 				String addressQuery = "SELECT street, city, state, zip, phone FROM address WHERE user_id=? LIMIT 1";
-				user.setAddress(new Address());
+				user.setAddress(new UserAddress());
 				stmt = connection.prepareStatement(addressQuery);
 				stmt.setString(1, userId);
 				rs = stmt.executeQuery();
 				if (rs.next()) {
-					Address address = user.getAddress();
+					UserAddress address = user.getAddress();
 					address.setUserId(userId);
 					address.setStreet(rs.getString("street"));
 					address.setCity(rs.getString("city"));

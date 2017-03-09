@@ -2,7 +2,6 @@ package application.model;
 
 public class Address {
 	
-	private String userId;
 	private String street;
 	private String city;
 	private String state;
@@ -10,22 +9,17 @@ public class Address {
 	private String phone;
 	
 	public Address(String street, String city, String state, String zip) {
+		this(street, city, state, zip, "");
+	}
+	
+	public Address(String street, String city, String state, String zip, String phone) {
 		this.street = street;
 		this.city = city;
 		this.state = state;
 		this.zip = zip;
+		this.phone = phone;
 	}
 	
-	public Address() {
-		
-	}
-	
-	public String getUserId() {
-		return userId;
-	}
-	public void setUserId(String userId) {
-		this.userId = userId;
-	}
 	public String getStreet() {
 		return street;
 	}
