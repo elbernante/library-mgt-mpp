@@ -11,6 +11,8 @@ public interface DataAccessObject extends Closable {
 
 	public User getUserById(String userId);
 	
+	public List<User> findAllUsers();
+	
 	public boolean saveNewUser(User user);
 
 	public List<Book> findAllBooks();

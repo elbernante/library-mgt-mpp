@@ -2,30 +2,31 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.*?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.layout.BorderPane?>
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="440.0"
-			prefWidth="669.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1"
-			fx:controller="application.controller.MemberListController">
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="440.0" prefWidth="669.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.MemberListController">
 	<center>
-		<TableView prefHeight="360.0" prefWidth="651.0" BorderPane.alignment="CENTER">
+		<TableView fx:id="memberTable" onMousePressed="#handleMousePressed" prefHeight="360.0" prefWidth="651.0" BorderPane.alignment="CENTER">
 			<columns>
-				<TableColumn prefWidth="75.0" text="ID"/>
-				<TableColumn prefWidth="121.0" text="First Name"/>
-				<TableColumn prefWidth="138.0" text="Last Name"/>
-				<TableColumn prefWidth="187.0" text="Address"/>
-				<TableColumn prefWidth="125.0" text="Phone Number"/>
+				<TableColumn fx:id="idCol" prefWidth="75.0" text="ID" />
+				<TableColumn fx:id="firstNameCol" prefWidth="121.0" text="First Name" />
+				<TableColumn fx:id="lastNameCol" prefWidth="138.0" text="Last Name" />
+				<TableColumn fx:id="addressCol" prefWidth="187.0" text="Address" />
+				<TableColumn fx:id="phoneCol" prefWidth="125.0" text="Phone Number" />
 			</columns>
 		</TableView>
 	</center>
 	<top>
 		<ToolBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
 			<items>
-				<JFXButton onAction="#openMemberAddWindow" text="Add"/>
-				<JFXButton text="Delete"/>
+				<JFXButton onAction="#openMemberAddWindow" text="Add" />
+				<JFXButton text="Delete" />
 			</items>
 			<BorderPane.margin>
-				<Insets/>
+				<Insets />
 			</BorderPane.margin>
 		</ToolBar>
 	</top>

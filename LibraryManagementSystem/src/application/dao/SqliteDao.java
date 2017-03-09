@@ -135,6 +135,29 @@ public class SqliteDao implements DataAccessObject {
 	}
 	
 	@Override
+	public List<User> findAllUsers() {
+		List<User> users = new ArrayList<>();
+		
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+
+		try {
+			String userQuery = "SELECT user_id FROM user";
+			stmt = connection.prepareStatement(userQuery);
+			rs = stmt.executeQuery();
+			
+			while(rs.next()) users.add(getUserById(rs.getString("user_id")));
+			
+			stmt.close();
+			rs.close();
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		
+		return users;
+	}
+	
+	@Override
 	public boolean saveNewUser(User user) {
 		boolean retVal = false;
 

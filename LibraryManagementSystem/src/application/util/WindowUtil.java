@@ -41,7 +41,7 @@ public class WindowUtil {
 			stage.setResizable(resizable);
 			callback.callback(loader);
 			stage.initModality(isModal ? Modality.APPLICATION_MODAL : Modality.NONE);
-			stage.showAndWait();;
+			stage.showAndWait();
 		} catch (IOException ex) {
 			Logger.getLogger(WindowUtil.class.getName()).log(Level.SEVERE, null, ex);
 		}
