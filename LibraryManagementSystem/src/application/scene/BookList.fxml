@@ -8,11 +8,11 @@
 			prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1"
 			fx:controller="application.controller.BookListController">
 	<center>
-		<TableView prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+		<TableView fx:id="bookTable" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
 			<columns>
-				<TableColumn prefWidth="75.0" text="ISBN"/>
-				<TableColumn prefWidth="205.0" text="Title"/>
-				<TableColumn prefWidth="189.0" text="Authors"/>
+				<TableColumn fx:id="isbnCol" prefWidth="75.0" text="ISBN"/>
+				<TableColumn fx:id="titleCol" prefWidth="205.0" text="Title"/>
+				<TableColumn fx:id="authorsCol" prefWidth="189.0" text="Authors"/>
 			</columns>
 		</TableView>
 	</center>
