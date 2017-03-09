@@ -1,20 +1,20 @@
 package application.model;
 
 public class BookCopy {
-	private String copyId;
+	private Integer copyId;
 	private Book book;
 	private boolean available;
 
-	public BookCopy(String copyId, boolean available) {
+	public BookCopy(Integer copyId, boolean available) {
 		this.copyId = copyId;
 		this.available = available;
 	}
 
-	public String getCopyId() {
+	public Integer getCopyId() {
 		return copyId;
 	}
 
-	public void setCopyId(String copyId) {
+	public void setCopyId(Integer copyId) {
 		this.copyId = copyId;
 	}
 

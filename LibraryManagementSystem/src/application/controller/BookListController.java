@@ -8,8 +8,10 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -30,7 +32,27 @@ public class BookListController implements Initializable {
 
 	@FXML
 	private void openBookAddWindow(ActionEvent event) {
-		loadWindow("scene/BookAdd.fxml", "Add Book", false);
+		showAddBookForm(null);
+	}
+
+	@FXML
+	private void handleMousePressed(MouseEvent event) {
+		if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
+			Book selectedBook = bookTable.getSelectionModel().getSelectedItem();
+			showAddBookForm(selectedBook);
+		}
+	}
+
+	private void showAddBookForm(Book selectedBook) {
+		loadWindow("scene/BookAdd.fxml", "Edit Book", false, true, (loader -> {
+			BookAddController controller = loader.<BookAddController>getController();
+			if (selectedBook != null) {
+				controller.setData(selectedBook);
+			}
+			controller.onSave((book -> {
+				loadBooks();
+			}));
+		}));
 	}
 
 	@Override
@@ -39,7 +61,17 @@ public class BookListController implements Initializable {
 		titleCol.setCellValueFactory(new PropertyValueFactory<>("title"));
 		authorsCol.setCellValueFactory(new PropertyValueFactory<>("authorNames"));
 
-		List<Book> books = DaoSession.getDb().findAllBooks();
+		loadBooks();
+	}
+
+	private void loadBooks() {
+		List<Book> books = null;
+		try {
+			books = DaoSession.getDb().findAllBooks();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		bookTable.getItems().setAll(books);
+		bookTable.refresh();
 	}
 }

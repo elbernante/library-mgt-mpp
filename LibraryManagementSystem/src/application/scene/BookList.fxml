@@ -2,28 +2,28 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.*?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.layout.BorderPane?>
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0"
-			prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1"
-			fx:controller="application.controller.BookListController">
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="682.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.BookListController">
 	<center>
-		<TableView fx:id="bookTable" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+		<TableView fx:id="bookTable" editable="true" onMousePressed="#handleMousePressed" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
 			<columns>
-				<TableColumn fx:id="isbnCol" prefWidth="75.0" text="ISBN"/>
-				<TableColumn fx:id="titleCol" prefWidth="205.0" text="Title"/>
-				<TableColumn fx:id="authorsCol" prefWidth="189.0" text="Authors"/>
+				<TableColumn fx:id="isbnCol" prefWidth="149.0" text="ISBN" />
+				<TableColumn fx:id="titleCol" prefWidth="320.0" text="Title" />
+				<TableColumn fx:id="authorsCol" minWidth="0.0" prefWidth="203.0" text="Authors" />
 			</columns>
 		</TableView>
 	</center>
 	<top>
 		<ToolBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
 			<items>
-				<JFXButton onAction="#openBookAddWindow" text="Add"/>
-				<JFXButton text="Delete"/>
+				<JFXButton onAction="#openBookAddWindow" text="Add New Book" />
 			</items>
 			<BorderPane.margin>
-				<Insets/>
+				<Insets />
 			</BorderPane.margin>
 		</ToolBar>
 	</top>

@@ -1,7 +1,7 @@
 package application.dao.base;
 
 import java.util.List;
-
+import java.sql.SQLException;
 import application.model.*;
 
 public interface DataAccessObject extends Closable {
@@ -10,16 +10,22 @@ public interface DataAccessObject extends Closable {
 	public boolean authenticate(String username, String hash);
 
 	public User getUserById(String userId);
-	
+
 	public List<User> findAllUsers();
-	
+
 	public boolean saveNewUser(User user);
 
-	public List<Book> findAllBooks();
+	public List<Book> findAllBooks() throws SQLException;
 
-	public List<Author> findAuthorsByIsbn(String isbn);
+	public Book findBookByIsbn(String isbn) throws SQLException;
 
-	public List<BookCopy> findCopiesByIsbn(String isbn);
+	public List<Author> findAuthorsByIsbn(String isbn) throws SQLException;
 
+	public List<BookCopy> findCopiesByIsbn(String isbn) throws SQLException;
 
+	public void createBook(Book book) throws SQLException;
+
+	public void updateBook(Book book) throws SQLException;
+
+	public void createBookCopy(BookCopy bookCopy) throws SQLException;
 }
