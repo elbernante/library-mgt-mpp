@@ -13,12 +13,11 @@ public class MemberListController implements Initializable {
 
 	@FXML
 	private void openMemberAddWindow(ActionEvent event) {
-		loadWindow("scene/Member.fxml", "Add Member", false, (loader) -> {
+		loadWindow("scene/Member.fxml", "Add Member", false, true, (loader) -> {
 			MemberController controller = loader.<MemberController>getController();
 			controller.onSave((user) -> {
 				System.out.println("User saved: " + user.getUserId());
 			});
-//			controller.setName("Trong");
 		});
 	}
 
