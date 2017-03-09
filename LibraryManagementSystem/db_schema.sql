@@ -86,7 +86,7 @@ CREATE TABLE "checkout_entry" (
   "due_date"        NUMERIC NOT NULL,
   FOREIGN KEY (user_id) REFERENCES "user" (user_id),
   FOREIGN KEY (copy_id) REFERENCES "book_copy" (copy_id),
-  UNIQUE (user_id, book_isbn, copy_id)
+  UNIQUE (user_id, copy_id)
 );
 
 -- Define roles
@@ -105,6 +105,14 @@ INSERT INTO user_role(user_id, role_id) VALUES("lib", 1);
 INSERT INTO "user"(user_id, password, firstname, lastname) VALUES ("both", "202cb962ac59075b964b07152d234b70", "Mr. Both", "User 2");
 INSERT INTO user_role(user_id, role_id) VALUES("both", 0);
 INSERT INTO user_role(user_id, role_id) VALUES("both", 1);
+
+-- Member user 1
+INSERT INTO "user"(user_id, password, firstname, lastname) VALUES ("member1", "202cb962ac59075b964b07152d234b70", "Patricia", "Cavazos");
+INSERT INTO address(user_id, street, city, state, zip, phone) VALUES ("member1", "2652 Romano Street", "Cambridge", "MA", "02141", "781-421-4949");
+
+-- Member user 2
+INSERT INTO "user"(user_id, password, firstname, lastname) VALUES ("member2", "202cb962ac59075b964b07152d234b70", "Robert", "Grove");
+INSERT INTO address(user_id, street, city, state, zip, phone) VALUES ("member2", "1862 George Avenue", "Mobile", "AL", "36638", "251-236-7810");
 
 -- Author
 INSERT INTO author (author_id, firstname, lastname, street, city, state, zip)
