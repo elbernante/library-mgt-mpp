@@ -9,9 +9,11 @@ public class User {
 	private String firstName;
 	private String lastName;
 	private Set<Integer> roles;
+	private Address address;
 	
 	public User() {
 		this.roles = new HashSet<>();
+		this.address = new Address();
 	}
 
 	public String getUserId() {
@@ -54,6 +56,14 @@ public class User {
 		roles.add(roleId);
 	}
 	
+	public Address getAddress() {
+		return address;
+	}
+
+	public void setAddress(Address address) {
+		this.address = address;
+	}
+
 	public boolean isAdmin() {
 		for (int i : roles) if (i == 0) return true;
 		return false;

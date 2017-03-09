@@ -1,33 +1,50 @@
 PRAGMA foreign_keys = ON;
 
+DROP TABLE IF EXISTS "user";
 CREATE TABLE "user" (
-  "user_id"   TEXT NOT NULL UNIQUE,
-  "password"  TEXT NOT NULL,
-  "firstname" TEXT,
-  "lastname"  TEXT,
-  PRIMARY KEY (user_id)
+    "user_id"   TEXT NOT NULL UNIQUE,
+    "password"  TEXT,
+    "firstname" TEXT,
+    "lastname"  TEXT,
+    PRIMARY KEY(user_id)
 );
 
+DROP TABLE IF EXISTS "role";
 CREATE TABLE "role" (
-  "id"          INTEGER NOT NULL,
-  "title"       TEXT,
-  "description" TEXT,
-  PRIMARY KEY (id)
+    "id"          INTEGER NOT NULL,
+    "title"       TEXT,
+    "description" TEXT,
+    PRIMARY KEY(id)
 );
 
+DROP TABLE IF EXISTS "user_role";
 CREATE TABLE "user_role" (
-  "user_id" TEXT NOT NULL,
-  "role_id" TEXT NOT NULL,
-  FOREIGN KEY (user_id) REFERENCES "user" (user_id),
-  FOREIGN KEY (role_id) REFERENCES role (id),
-  UNIQUE (role_id, user_id)
+    "user_id"   TEXT NOT NULL,
+    "role_id"   INTEGER NOT NULL,
+    FOREIGN KEY(user_id) REFERENCES "user"(user_id),
+    FOREIGN KEY(role_id) REFERENCES role(id),
+    UNIQUE(role_id, user_id)
 );
 
+DROP TABLE IF EXISTS "address";
+CREATE TABLE "address" (
+    "user_id"   TEXT NOT NULL,
+    "street"    TEXT,
+    "city"      TEXT,
+    "state"     TEXT,
+    "zip"       TEXT,
+    "phone"     TEXT,
+    PRIMARY KEY(user_id),
+    FOREIGN KEY(user_id) REFERENCES "user"(user_id)
+);
+
+DROP TABLE IF EXISTS "book";
 CREATE TABLE "book" (
   "isbn"  TEXT PRIMARY KEY,
   "title" TEXT NOT NULL
 );
 
+DROP TABLE IF EXISTS "author";
 CREATE TABLE "author" (
   "author_id"   INTEGER PRIMARY KEY AUTOINCREMENT,
   "firstname"   TEXT NOT NULL,
@@ -41,6 +58,7 @@ CREATE TABLE "author" (
   "bio"         TEXT
 );
 
+DROP TABLE IF EXISTS "book_author";
 CREATE TABLE "book_author" (
   "book_isbn" TEXT    NOT NULL,
   "author_id" INTEGER NOT NULL,
@@ -49,6 +67,7 @@ CREATE TABLE "book_author" (
   UNIQUE (book_isbn, author_id)
 );
 
+DROP TABLE IF EXISTS "book_copy";
 CREATE TABLE "book_copy" (
   "copy_id"   INTEGER NOT NULL,
   "book_isbn" TEXT    NOT NULL,
@@ -62,20 +81,17 @@ INSERT INTO role (id, title, description) VALUES (0, "ADMINISTRATOR", "Administr
 INSERT INTO role (id, title, description) VALUES (1, "LIBRARIAN", "Librarian user");
 
 -- Admin user
-INSERT INTO "user" (user_id, password, firstname, lastname)
-VALUES ("admin", "202cb962ac59075b964b07152d234b70", "Mr. Admin", "User 0");
-INSERT INTO user_role (user_id, role_id) VALUES ("admin", 0);
+INSERT INTO "user"(user_id, password, firstname, lastname) VALUES ("admin", "202cb962ac59075b964b07152d234b70", "Mr. Admin", "User 0");
+INSERT INTO user_role(user_id, role_id) VALUES("admin", 0);
 
 -- Librarian user
-INSERT INTO "user" (user_id, password, firstname, lastname)
-VALUES ("lib", "202cb962ac59075b964b07152d234b70", "Mr. Librarian", "User 1");
-INSERT INTO user_role (user_id, role_id) VALUES ("lib", 1);
+INSERT INTO "user"(user_id, password, firstname, lastname) VALUES ("lib", "202cb962ac59075b964b07152d234b70", "Mr. Librarian", "User 1");
+INSERT INTO user_role(user_id, role_id) VALUES("lib", 1);
 
 -- Both (admin and librarian) user
-INSERT INTO "user" (user_id, password, firstname, lastname)
-VALUES ("both", "202cb962ac59075b964b07152d234b70", "Mr. Both", "User 2");
-INSERT INTO user_role (user_id, role_id) VALUES ("both", 0);
-INSERT INTO user_role (user_id, role_id) VALUES ("both", 1);
+INSERT INTO "user"(user_id, password, firstname, lastname) VALUES ("both", "202cb962ac59075b964b07152d234b70", "Mr. Both", "User 2");
+INSERT INTO user_role(user_id, role_id) VALUES("both", 0);
+INSERT INTO user_role(user_id, role_id) VALUES("both", 1);
 
 -- Author
 INSERT INTO author (author_id, firstname, lastname, street, city, state, zip)
@@ -107,3 +123,7 @@ INSERT INTO book_copy (copy_id, book_isbn, available) VALUES (2, '978-1-78355-37
 INSERT INTO book_copy (copy_id, book_isbn, available) VALUES (1, '978-1-78398-478-7', 1);
 INSERT INTO book_copy (copy_id, book_isbn, available) VALUES (2, '978-1-78398-478-7', 1);
 INSERT INTO book_copy (copy_id, book_isbn, available) VALUES (3, '978-1-78398-478-7', 1);
+
+COMMIT;
+
+VACUUM;
