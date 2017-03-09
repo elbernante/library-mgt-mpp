@@ -1,7 +1,7 @@
 package application.dao;
 
 import application.dao.base.DataAccessObject;
-import application.model.User;
+import application.model.*;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -9,7 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import application.model.*;
+
 
 public class SqliteDao implements DataAccessObject {
 
@@ -82,17 +82,16 @@ public class SqliteDao implements DataAccessObject {
 
 	@Override
 	public User getUserById(String userId) {
-		String user_query = "SELECT user_id, password, firstname, lastname  FROM user WHERE user_id=? LIMIT 1";
-		String role_query = "SELECT role_id FROM user_role WHERE user_id=?";
-
 		User user = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		
 		try {
-			stmt = connection.prepareStatement(user_query);
+			String userQuery = "SELECT user_id, password, firstname, lastname  FROM user WHERE user_id=? LIMIT 1";
+			stmt = connection.prepareStatement(userQuery);
 			stmt.setString(1, userId);
 			rs = stmt.executeQuery();
+			
 			if (rs.next()) {
 				user = new User();
 				user.setUserId(rs.getString("user_id"));
@@ -102,15 +101,84 @@ public class SqliteDao implements DataAccessObject {
 				stmt.close();
 				rs.close();
 				
-				stmt = connection.prepareStatement(role_query);
+				// get roles
+				String roleQuery = "SELECT role_id FROM user_role WHERE user_id=?";
+				stmt = connection.prepareStatement(roleQuery);
 				stmt.setString(1, userId);
 				rs = stmt.executeQuery();
 				while (rs.next()) user.addRole(rs.getInt("role_id"));
+				stmt.close();
+				rs.close();
+				
+				// get address
+				String addressQuery = "SELECT street, city, state, zip, phone FROM address WHERE user_id=? LIMIT 1";
+				user.setAddress(new Address());
+				stmt = connection.prepareStatement(addressQuery);
+				stmt.setString(1, userId);
+				rs = stmt.executeQuery();
+				if (rs.next()) {
+					Address address = user.getAddress();
+					address.setUserId(userId);
+					address.setStreet(rs.getString("street"));
+					address.setCity(rs.getString("city"));
+					address.setState(rs.getString("state"));
+					address.setZip(rs.getString("zip"));
+					address.setPhone(rs.getString("phone"));
+				}
+				stmt.close();
+				rs.close();
 			}
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
 		
 		return user;
+	}
+
+	@Override
+	public boolean saveNewUser(User user) {
+		boolean retVal = false;
+
+		PreparedStatement stmt = null;
+		
+		try {
+			// save user
+			String saveUser= "INSERT INTO 'user'(user_id, password, firstname, lastname) VALUES (?, ?, ?, ?)";
+			stmt = connection.prepareStatement(saveUser);
+			stmt.setString(1, user.getUserId());
+			stmt.setString(2, user.getPassword());
+			stmt.setString(3, user.getFirstName());
+			stmt.setString(4, user.getLastName());
+			stmt.executeUpdate();
+			stmt.close();
+			
+			// save role
+			String saveRole = "INSERT INTO user_role(user_id, role_id) VALUES (?, ?)";
+			for (Integer i : user.getRoles()) {
+				stmt = connection.prepareStatement(saveRole);
+				stmt.setString(1, user.getUserId());
+				stmt.setInt(2, i);
+				stmt.executeUpdate();
+				stmt.close();
+			}
+			
+			// save address
+			String saveAddress = "INSERT INTO address(user_id, street, city, state, zip, phone) VALUES (?, ?, ?, ?, ?, ?)";
+			stmt = connection.prepareStatement(saveAddress);
+			stmt.setString(1, user.getUserId());
+			stmt.setString(2, user.getAddress().getStreet());
+			stmt.setString(3, user.getAddress().getCity());
+			stmt.setString(4, user.getAddress().getState());
+			stmt.setString(5, user.getAddress().getZip());
+			stmt.setString(6, user.getAddress().getPhone());
+			stmt.executeUpdate();
+			stmt.close();
+			
+			retVal = true;
+		} catch (Exception e) {
+			System.err.println(e.getClass().getName() + ": " + e.getMessage());
+		}
+
+		return retVal;
 	}
 }
