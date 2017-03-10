@@ -6,12 +6,18 @@ import java.util.List;
 public class Book {
 	private String isbn;
 	private String title;
+	private int checkoutLimit;
 	private List<Author> authors;
 	private List<BookCopy> copies;
 
 	public Book(String isbn, String title) {
+		this(isbn, title, 21);
+	}
+	
+	public Book(String isbn, String title, int checkoutLimit) {
 		this.isbn = isbn;
 		this.title = title;
+		this.checkoutLimit = checkoutLimit;
 		this.authors = new ArrayList<>();
 		this.copies = new ArrayList<>();
 	}
@@ -63,6 +69,14 @@ public class Book {
 
 	public void setTitle(String title) {
 		this.title = title;
+	}
+
+	public int getCheckoutLimit() {
+		return checkoutLimit;
+	}
+
+	public void setCheckoutLimit(int checkoutLimit) {
+		this.checkoutLimit = checkoutLimit;
 	}
 
 	public List<Author> getAuthors() {

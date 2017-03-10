@@ -208,10 +208,11 @@ public class SqliteDao implements DataAccessObject {
 		while (rs.next()) {
 			String isbn = rs.getString("isbn");
 			String title = rs.getString("title");
+			int checkoutLimit = rs.getInt("checkout_limit");
 			List<Author> authors = findAuthorsByIsbn(isbn);
 			List<BookCopy> bookCopies = findCopiesByIsbn(isbn);
 
-			Book book = new Book(isbn, title);
+			Book book = new Book(isbn, title, checkoutLimit);
 			book.setAuthors(authors);
 
 			for (BookCopy bookCopy : bookCopies) {
@@ -234,7 +235,7 @@ public class SqliteDao implements DataAccessObject {
 		stmt.setString(1, isbn);
 		rs = stmt.executeQuery();
 		if (rs.next()) {
-			return new Book(rs.getString("isbn"), rs.getString("title"));
+			return new Book(rs.getString("isbn"), rs.getString("title"), rs.getInt("checkout_limit"));
 		}
 		stmt.close();
 		rs.close();
@@ -292,10 +293,11 @@ public class SqliteDao implements DataAccessObject {
 
 	@Override
 	public void createBook(Book book) throws SQLException {
-		String sql = "INSERT INTO book (isbn, title) VALUES (?, ?)";
+		String sql = "INSERT INTO book (isbn, title, checkout_limit) VALUES (?, ?, ?)";
 		PreparedStatement stmt = connection.prepareStatement(sql);
 		stmt.setString(1, book.getIsbn());
 		stmt.setString(2, book.getTitle());
+		stmt.setInt(3, book.getCheckoutLimit());
 		stmt.execute();
 		stmt.close();
 	}

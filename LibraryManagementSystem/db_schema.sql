@@ -47,7 +47,8 @@ CREATE TABLE "address" (
 
 CREATE TABLE "book" (
   "isbn"  TEXT PRIMARY KEY,
-  "title" TEXT NOT NULL
+  "title" TEXT NOT NULL,
+  "checkout_limit" INTEGER NOT NULL DEFAULT 21
 );
 
 CREATE TABLE "author" (
