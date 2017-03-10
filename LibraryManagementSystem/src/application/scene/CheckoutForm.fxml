@@ -1,97 +1,175 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-
-<?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXTextField?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="702.0"
-			prefWidth="618.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1"
-			fx:controller="application.controller.MainController">
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="648.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.CheckoutFormController">
 	<center>
-		<VBox prefHeight="686.0" prefWidth="598.0" BorderPane.alignment="CENTER">
+		<VBox prefHeight="631.0" prefWidth="780.0" BorderPane.alignment="CENTER">
 			<children>
 				<VBox prefHeight="289.0" prefWidth="618.0">
 					<children>
-						<JFXTextField labelFloat="true" prefHeight="45.0" prefWidth="598.0"
-									  promptText="Please enter Member ID to search">
+						<JFXTextField fx:id="memberIdField" labelFloat="true" onAction="#searchMemberIdAction" prefHeight="45.0" prefWidth="598.0" promptText="Enter Member ID to search">
 							<VBox.margin>
-								<Insets bottom="20.0" top="10.0"/>
+								<Insets bottom="10.0" top="10.0" />
 							</VBox.margin>
 						</JFXTextField>
-						<HBox prefHeight="23.0" prefWidth="352.0" spacing="10.0">
-							<children>
-								<Label text="Member Name:"/>
-								<Label text="&lt;member name&gt;">
-									<HBox.margin>
-										<Insets bottom="10.0"/>
-									</HBox.margin>
-									<font>
-										<Font name="System Bold" size="13.0"/>
-									</font>
-								</Label>
-							</children>
-							<VBox.margin>
-								<Insets bottom="10.0"/>
-							</VBox.margin>
-						</HBox>
-						<TableView prefHeight="279.0" prefWidth="598.0">
+                  <GridPane>
+                     <columnConstraints>
+                        <ColumnConstraints hgrow="NEVER" maxWidth="40.0" minWidth="40.0" prefWidth="40.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="613.0" minWidth="10.0" prefWidth="613.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="562.0" minWidth="10.0" prefWidth="99.0" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                     </rowConstraints>
+                     <children>
+                        <Label text="Name" textFill="#7c7c7cbd" GridPane.halignment="RIGHT">
+                           <font>
+                              <Font size="10.0" />
+                           </font>
+                           <GridPane.margin>
+                              <Insets right="5.0" />
+                           </GridPane.margin>
+                        </Label>
+                        <Label layoutX="10.0" layoutY="17.0" text="ID" textFill="#7c7c7cbd" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
+                           <font>
+                              <Font size="10.0" />
+                           </font>
+                           <GridPane.margin>
+                              <Insets right="5.0" />
+                           </GridPane.margin>
+                        </Label>
+                        <Label fx:id="nameLabel" text="-" textFill="#0099ff" GridPane.columnIndex="1">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="memberIdLabel" layoutX="49.0" layoutY="13.0" text="-" textFill="#0099ff" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </GridPane>
+						<TableView fx:id="checkoutTable" prefHeight="188.0" prefWidth="622.0">
 							<columns>
-								<TableColumn prefWidth="75.0" text="ISBN"/>
-								<TableColumn prefWidth="75.0" text="Copy ID"/>
-								<TableColumn prefWidth="194.0" text="Title"/>
-								<TableColumn prefWidth="108.0" text="Due Date"/>
+								<TableColumn fx:id="cktIsbnColumn" editable="false" prefWidth="145.0" text="ISBN" />
+								<TableColumn fx:id="cktCopyIdColumn" editable="false" prefWidth="59.0" text="Copy ID" />
+								<TableColumn fx:id="cktTitleColumn" editable="false" prefWidth="327.0" text="Title" />
+								<TableColumn fx:id="cktCheckoutDateCol" editable="false" prefWidth="129.0" text="Checkout Date" />
+                        <TableColumn fx:id="cktDueDateColumn" editable="false" prefWidth="116.0" text="Due Date" />
 							</columns>
 							<VBox.margin>
-								<Insets/>
+								<Insets />
 							</VBox.margin>
 						</TableView>
 					</children>
 					<VBox.margin>
-						<Insets bottom="20.0"/>
+						<Insets bottom="20.0" />
 					</VBox.margin>
 				</VBox>
-				<VBox prefHeight="301.0" prefWidth="598.0">
+				<VBox prefHeight="320.0" prefWidth="780.0">
 					<children>
-						<JFXTextField labelFloat="true" prefHeight="42.0" prefWidth="598.0"
-									  promptText="Please enter ISBN to search">
+						<JFXTextField fx:id="isbnField" labelFloat="true" onAction="#searchIsbnAction" prefHeight="42.0" prefWidth="598.0" promptText="Enter ISBN to search">
 							<VBox.margin>
-								<Insets bottom="10.0" top="10.0"/>
+								<Insets bottom="10.0" top="10.0" />
 							</VBox.margin>
 						</JFXTextField>
-						<TableView prefHeight="255.0" prefWidth="598.0">
-							<columns>
-								<TableColumn prefWidth="94.0" text="Copy ID"/>
-								<TableColumn prefWidth="203.0" text="Title"/>
-								<TableColumn prefWidth="100.0" text="Available"/>
-							</columns>
-						</TableView>
+                  <GridPane>
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="NEVER" maxWidth="100.0" minWidth="50.0" prefWidth="81.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="450.0" prefWidth="699.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <Label text="Title" textFill="#7c7c7cbd" GridPane.halignment="RIGHT">
+                           <font>
+                              <Font size="10.0" />
+                           </font>
+                           <GridPane.margin>
+                              <Insets right="5.0" />
+                           </GridPane.margin>
+                        </Label>
+                        <Label layoutX="10.0" layoutY="17.0" text="ISBN" textFill="#7c7c7cbd" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
+                           <font>
+                              <Font size="10.0" />
+                           </font>
+                           <GridPane.margin>
+                              <Insets right="5.0" />
+                           </GridPane.margin>
+                        </Label>
+                        <Label layoutX="10.0" layoutY="47.0" text="Author(s)" textFill="#7c7c7cbd" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
+                           <font>
+                              <Font size="10.0" />
+                           </font>
+                           <GridPane.margin>
+                              <Insets right="5.0" />
+                           </GridPane.margin>
+                        </Label>
+                        <Label fx:id="bookTitleLabel" text="-" textFill="#0099ff" GridPane.columnIndex="1">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="isbnLabel" layoutX="51.0" layoutY="16.0" text="-" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                           <font>
+                              <Font size="11.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="authorsLabel" layoutX="51.0" layoutY="47.0" text="-" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                           <font>
+                              <Font size="11.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="21.0" layoutY="55.0" text="Checkout limit" textFill="#7c7c7cbd" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
+                           <font>
+                              <Font size="10.0" />
+                           </font>
+                           <GridPane.margin>
+                              <Insets right="5.0" />
+                           </GridPane.margin>
+                        </Label>
+                        <Label fx:id="checkoutLimitLabel" layoutX="91.0" layoutY="55.0" text="-" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                           <font>
+                              <Font size="11.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </GridPane>
+                  <TableView fx:id="copiesTable" prefHeight="191.0" prefWidth="780.0">
+                     <columns>
+                        <TableColumn fx:id="cpCopyIdColumn" editable="false" prefWidth="75.0" text="Copy ID" />
+                        <TableColumn fx:id="cpIsAvailableColumn" editable="false" prefWidth="122.0" text="Availability" />
+                        <TableColumn fx:id="cpActionColumn" editable="false" prefWidth="164.0" text="Action" />
+                     </columns>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </TableView>
 					</children>
 					<VBox.margin>
-						<Insets bottom="10.0"/>
+						<Insets bottom="10.0" />
 					</VBox.margin>
 				</VBox>
-				<HBox alignment="CENTER" prefHeight="63.0" prefWidth="598.0">
-					<children>
-						<JFXButton defaultButton="true" prefHeight="45.0" prefWidth="130.0"
-								   style="-fx-background-color: #424242;" text="Checkout" textFill="WHITE">
-							<graphic>
-								<ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
-									<image>
-										<Image url="@../icons/issue.png"/>
-									</image>
-								</ImageView>
-							</graphic>
-						</JFXButton>
-					</children>
-				</HBox>
 			</children>
 			<BorderPane.margin>
-				<Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+				<Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
 			</BorderPane.margin>
 		</VBox>
 	</center>

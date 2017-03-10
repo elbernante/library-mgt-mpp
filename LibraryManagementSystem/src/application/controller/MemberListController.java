@@ -1,5 +1,8 @@
 package application.controller;
 
+import application.dao.base.DaoSession;
+import application.model.User;
+import application.model.UserAddress;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -13,44 +16,40 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import application.dao.base.DaoSession;
-import application.model.User;
-import application.model.UserAddress;
-
 import static application.util.WindowUtil.loadWindow;
 
 public class MemberListController implements Initializable {
-	
+
 	@FXML
-    private TableView<User> memberTable;
+	private TableView<User> memberTable;
 
-    @FXML
-    private TableColumn<User, String> idCol;
+	@FXML
+	private TableColumn<User, String> idCol;
 
-    @FXML
-    private TableColumn<User, String> firstNameCol;
+	@FXML
+	private TableColumn<User, String> firstNameCol;
 
-    @FXML
-    private TableColumn<User, String> lastNameCol;
+	@FXML
+	private TableColumn<User, String> lastNameCol;
 
-    @FXML
-    private TableColumn<User, String> addressCol;
+	@FXML
+	private TableColumn<User, String> addressCol;
 
-    @FXML
-    private TableColumn<User, String> phoneCol;
+	@FXML
+	private TableColumn<User, String> phoneCol;
 
 	@FXML
 	private void openMemberAddWindow(ActionEvent event) {
 		showMemberForm(null);
 	}
-	
+
 	@FXML
-    void handleMousePressed(MouseEvent event) {
+	void handleMousePressed(MouseEvent event) {
 		if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
-            User selectedUser = memberTable.getSelectionModel().getSelectedItem();  
-            showMemberForm(selectedUser);
-        }
-    }
+			User selectedUser = memberTable.getSelectionModel().getSelectedItem();
+			showMemberForm(selectedUser);
+		}
+	}
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -72,17 +71,17 @@ public class MemberListController implements Initializable {
 			}
 			return new ReadOnlyStringWrapper(display);
 		});
-		
+
 		phoneCol.setCellValueFactory((param) -> {
 			return new ReadOnlyStringWrapper(param.getValue().getAddress().getPhone());
 		});
-		
+
 		List<User> users = DaoSession.getDb().findAllUsers();
 		memberTable.getItems().setAll(users);
 	}
-	
-	private void showMemberForm(User targetUser){
-		loadWindow("scene/Member.fxml", "Add Member", false, true, (loader) -> {
+
+	private void showMemberForm(User targetUser) {
+		loadWindow("scene/Member.fxml", "Edit Member", false, true, (loader) -> {
 			MemberController controller = loader.<MemberController>getController();
 			if (targetUser != null) controller.setData(targetUser);
 			controller.onSave((user) -> {
