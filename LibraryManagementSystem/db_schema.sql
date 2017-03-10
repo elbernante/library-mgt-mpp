@@ -81,10 +81,13 @@ CREATE TABLE "book_copy" (
 );
 
 CREATE TABLE "checkout_entry" (
-  "user_id"         TEXT    NOT NULL,
-  "copy_id"         INTEGER NOT NULL,
-  "check_out_date"  NUMERIC NOT NULL,
-  "due_date"        NUMERIC NOT NULL,
+  "entry_id"      INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+  "user_id"       TEXT    NOT NULL,
+  "copy_id"       INTEGER NOT NULL,
+  "checkout_date" NUMERIC NOT NULL,
+  "due_date"      NUMERIC NOT NULL,
+  "return_date"   NUMERIC,
+  "status"        TEXT DEFAULT "OUT",
   FOREIGN KEY (user_id) REFERENCES "user" (user_id),
   FOREIGN KEY (copy_id) REFERENCES "book_copy" (copy_id),
   UNIQUE (user_id, copy_id)

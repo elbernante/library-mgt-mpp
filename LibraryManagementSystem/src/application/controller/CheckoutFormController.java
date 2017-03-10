@@ -1,5 +1,6 @@
 package application.controller;
 
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 
 import application.dao.base.DaoSession;
@@ -8,10 +9,13 @@ import application.model.BookCopy;
 import application.model.CheckoutEntry;
 import application.model.User;
 import application.util.WindowUtil;
+import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -73,13 +77,23 @@ public class CheckoutFormController {
     private TableColumn<BookCopy, String> cpIsAvailableColumn;
 
     @FXML
-    private TableColumn<BookCopy, String> cpActionColumn;
+    private TableColumn<BookCopy, BookCopy> cpActionColumn;
     
     @FXML
     public void initialize() {
     	cpCopyIdColumn.setCellValueFactory(new PropertyValueFactory<>("copyId"));
     	cpIsAvailableColumn.setCellValueFactory((p) -> {
     		return new ReadOnlyStringWrapper(p.getValue().isAvailable() ? "Available" : "Checked out");
+    	});
+    	
+    	
+    	// Action column
+    	cpActionColumn.setCellFactory((p) -> {
+    		return new CheckoutCell(bookCopy -> this.checkoutCopy(bookCopy));
+    	});
+    	
+    	cpActionColumn.setCellValueFactory((p) -> {
+    		return new ReadOnlyObjectWrapper<BookCopy>(p.getValue());
     	});
     }
 
@@ -106,6 +120,7 @@ public class CheckoutFormController {
     		isbnField.selectAll();
     	} else {
     		copiesTable.requestFocus();
+    		// TODO: if no copies available, show message
     	}
     }
 
@@ -125,10 +140,37 @@ public class CheckoutFormController {
     	}
     }
     
+    private void checkoutCopy(BookCopy bookCopy) {
+    	
+    		if (member == null) {
+    			WindowUtil.messageBox("Select a member to checkout the book");
+    			memberIdField.requestFocus();
+    			return;
+    		}
+    		
+    		CheckoutEntry entry = DaoSession.getDb().checkoutCopy(member.getUserId(), bookCopy.getCopyId());
+    		if (entry == null) {
+    			WindowUtil.messageBox("There was an error checking out the book.");
+    			return;
+    		}
+    		
+    		// TODO: add entry to user checkout log
+    		// TODO: refresh checkout log table
+    		
+    		// update current copy
+ 			bookCopy.setAvailable(false);
+ 			
+ 			// refresh UIs
+ 			
+ 			// dirty hack to refresh table
+ 			copiesTable.getColumns().get(0).setVisible(false);
+ 			copiesTable.getColumns().get(0).setVisible(true);
+    }
+    
     private void clearMemeberInfo() {
     	nameLabel.setText("-");
     	memberIdLabel.setText("-");
-    	// TODO: clear checkout table
+    	checkoutTable.getItems().setAll();
     }
     
     public void setBook(Book book) {
@@ -152,5 +194,37 @@ public class CheckoutFormController {
     	copiesTable.getItems().setAll();
     }
     
+    private static interface  ActionDelegate <T> {
+    	public void onAction(T t);
+    }
 
+    private static class CheckoutCell extends TableCell<BookCopy, BookCopy>{
+    	private JFXButton button;
+    	private ActionDelegate<BookCopy> delegate;
+    	
+    	public CheckoutCell(ActionDelegate<BookCopy> delegate) {
+    		this.delegate = delegate;
+			button = new JFXButton("Checkout");
+			button.setStyle("fx-padding: 0.1em 0.1em; " +
+							"-fx-font-size: 13px; " +
+							"-jfx-button-type: RAISED; " +
+							"-fx-background-color: rgb(10, 206, 43); " +
+							"-fx-pref-width: 200; " +
+							"-fx-text-fill: WHITE;");
+			button.setOnAction((event) -> {
+				if (delegate != null) delegate.onAction(getItem());
+			});
+		}
+    	
+    	@Override
+    	protected void updateItem(BookCopy bookCopy, boolean empty) {
+            super.updateItem(bookCopy, empty);
+            if (empty || !bookCopy.isAvailable()) {
+            	setGraphic(null);
+            } else {
+            	button.setText("Checkout");
+            	setGraphic(button);
+            }
+    	}
+    }
 }

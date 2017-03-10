@@ -4,6 +4,7 @@ import application.dao.base.DataAccessObject;
 import application.model.*;
 
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -353,5 +354,55 @@ public class SqliteDao implements DataAccessObject {
 		stmt.setInt(3, 1);
 		stmt.execute();
 		stmt.close();
+	}
+	
+	@Override
+	public CheckoutEntry checkoutCopy(String userId, int copyId) {
+		CheckoutEntry entry = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		
+		int checkoutLimit = 0;
+		try {
+			// get limit
+			String limitQuery = "SELECT checkout_limit FROM book WHERE isbn = " + 
+								"(SELECT book_isbn FROM book_copy WHERE copy_id=? LIMIT 1) LIMIT 1";
+			stmt = connection.prepareStatement(limitQuery);
+			stmt.setInt(1, copyId);
+			rs = stmt.executeQuery();
+			if (rs.next()) checkoutLimit = rs.getInt("checkout_limit");
+			stmt.close();
+			rs.close();
+			
+			// create entry
+			String createEntry = "INSERT INTO checkout_entry (user_id, copy_id, checkout_date, due_date) VALUES (?, ?, ?, ?)";
+			stmt = connection.prepareStatement(createEntry, Statement.RETURN_GENERATED_KEYS);
+			LocalDate checkoutDate = LocalDate.now();
+			LocalDate dueDate = checkoutDate.plusDays(checkoutLimit);
+			stmt.setString(1, userId);
+			stmt.setInt(2, copyId);
+			stmt.setDate(3, Date.valueOf(checkoutDate));
+			stmt.setDate(4, Date.valueOf(dueDate));
+			stmt.executeUpdate();
+			rs = stmt.getGeneratedKeys();
+			if (rs.next()) {
+				entry = new CheckoutEntry(rs.getInt(1), userId, copyId, checkoutDate, dueDate);
+			}
+			stmt.close();
+			rs.close();
+			
+			// update book copy
+			String updateCopy = "UPDATE book_copy SET available = 0 WHERE copy_id=?";
+			stmt = connection.prepareStatement(updateCopy);
+			stmt.setInt(1, copyId);
+			stmt.executeUpdate();
+			stmt.close();
+			rs.close();
+			
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		
+		return entry;
 	}
 }

@@ -30,4 +30,6 @@ public interface DataAccessObject extends Closable {
 	public void updateBook(Book book) throws SQLException;
 
 	public void createBookCopy(BookCopy bookCopy) throws SQLException;
+	
+	public CheckoutEntry checkoutCopy(String userId, int copyId);
 }

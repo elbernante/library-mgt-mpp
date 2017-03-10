@@ -1,24 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="702.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.CheckoutFormController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="648.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.CheckoutFormController">
 	<center>
-		<VBox prefHeight="682.0" prefWidth="800.0" BorderPane.alignment="CENTER">
+		<VBox prefHeight="631.0" prefWidth="780.0" BorderPane.alignment="CENTER">
 			<children>
 				<VBox prefHeight="289.0" prefWidth="618.0">
 					<children>
@@ -83,7 +79,7 @@
 						<Insets bottom="20.0" />
 					</VBox.margin>
 				</VBox>
-				<VBox prefHeight="278.0" prefWidth="780.0">
+				<VBox prefHeight="320.0" prefWidth="780.0">
 					<children>
 						<JFXTextField fx:id="isbnField" labelFloat="true" onAction="#searchIsbnAction" prefHeight="42.0" prefWidth="598.0" promptText="Enter ISBN to search">
 							<VBox.margin>
@@ -118,7 +114,7 @@
                               <Insets right="5.0" />
                            </GridPane.margin>
                         </Label>
-                        <Label layoutX="10.0" layoutY="47.0" text="Authors" textFill="#7c7c7cbd" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
+                        <Label layoutX="10.0" layoutY="47.0" text="Author(s)" textFill="#7c7c7cbd" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
                            <font>
                               <Font size="10.0" />
                            </font>
@@ -156,7 +152,7 @@
                         </Label>
                      </children>
                   </GridPane>
-                  <TableView fx:id="copiesTable" prefHeight="188.0" prefWidth="622.0">
+                  <TableView fx:id="copiesTable" prefHeight="191.0" prefWidth="780.0">
                      <columns>
                         <TableColumn fx:id="cpCopyIdColumn" editable="false" prefWidth="75.0" text="Copy ID" />
                         <TableColumn fx:id="cpIsAvailableColumn" editable="false" prefWidth="122.0" text="Availability" />
@@ -171,19 +167,6 @@
 						<Insets bottom="10.0" />
 					</VBox.margin>
 				</VBox>
-				<HBox alignment="CENTER" prefHeight="63.0" prefWidth="598.0">
-					<children>
-						<JFXButton defaultButton="true" onAction="#tempAction" prefHeight="45.0" prefWidth="130.0" style="-fx-background-color: #424242;" text="Checkout" textFill="WHITE">
-							<graphic>
-								<ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
-									<image>
-										<Image url="@../icons/issue.png" />
-									</image>
-								</ImageView>
-							</graphic>
-						</JFXButton>
-					</children>
-				</HBox>
 			</children>
 			<BorderPane.margin>
 				<Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
