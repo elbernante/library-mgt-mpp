@@ -7,9 +7,16 @@ import javafx.fxml.Initializable;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import com.jfoenix.controls.JFXButton;
+
+import application.Session;
+
 import static application.util.WindowUtil.loadWindow;
 
 public class MainController implements Initializable {
+	
+	@FXML
+    private JFXButton checkoutButton;
 
 	@FXML
 	private void openBookListWindow(ActionEvent event) {
@@ -28,6 +35,6 @@ public class MainController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-
+		checkoutButton.setDisable(!Session.getCurrentUser().isLibrarian());
 	}
 }
