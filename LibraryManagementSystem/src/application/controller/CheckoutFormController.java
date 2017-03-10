@@ -3,13 +3,13 @@ package application.controller;
 import com.jfoenix.controls.JFXTextField;
 
 import application.dao.base.DaoSession;
+import application.model.Book;
 import application.model.BookCopy;
 import application.model.CheckoutEntry;
 import application.model.User;
 import application.util.WindowUtil;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -17,6 +17,7 @@ import javafx.scene.control.TableView;
 public class CheckoutFormController {
 	
 	User member = null;
+	Book book = null;
 
     @FXML
     private JFXTextField memberIdField;
@@ -56,6 +57,9 @@ public class CheckoutFormController {
 
     @FXML
     private Label authorsLabel;
+    
+    @FXML
+    private Label checkoutLimitLabel;
 
     @FXML
     private TableView<BookCopy> copiesTable;
@@ -70,16 +74,12 @@ public class CheckoutFormController {
     private TableColumn<BookCopy, String> cpActionColumn;
 
     @FXML
-    void searchMemberIdAction(ActionEvent event) {
-    	
-    	System.out.println(memberIdField.getText());
-    	nameLabel.setText(memberIdField.getText());
-    	
+    void searchMemberIdAction(ActionEvent event) {    	
     	String query = memberIdField.getText().toLowerCase();
     	User u = DaoSession.getDb().getUserById(query);
     	setMember(u);
     	if (u == null) {
-    		WindowUtil.messageBox("User ID " + query + " not found.");
+    		WindowUtil.messageBox("User ID '" + query + "' not found.");
     		memberIdField.selectAll();
     	} else {
     		isbnField.requestFocus();
@@ -88,7 +88,16 @@ public class CheckoutFormController {
     
     @FXML
     void searchIsbnAction(ActionEvent event) {
-
+    	String query = isbnField.getText();
+    	Book b = DaoSession.getDb().getBookByIsbn(query);
+    	
+    	if (b == null) {
+    		WindowUtil.messageBox("ISBN " + query + " not found.");
+    		isbnField.selectAll();
+    	} else {
+    		setBook(b);
+    		copiesTable.requestFocus();
+    	}
     }
 
     
@@ -108,8 +117,30 @@ public class CheckoutFormController {
     }
     
     private void clearMemeberInfo() {
-    	nameLabel.setText("");
-    	memberIdLabel.setText("");
+    	nameLabel.setText("-");
+    	memberIdLabel.setText("-");
+    	// TODO: clear checkout table
+    }
+    
+    public void setBook(Book book) {
+    	this.book = book;
+    	if (book == null) {
+    		clearBookInfo();
+    	} else {
+    		bookTitleLabel.setText(book.getTitle());
+        	isbnLabel.setText(book.getIsbn());
+        	authorsLabel.setText(book.getAuthorNames());
+        	checkoutLimitLabel.setText(book.getCheckoutLimit() + " days");
+    	}
+    }
+    
+    private void clearBookInfo() {
+    	bookTitleLabel.setText("-");
+    	isbnLabel.setText("-");
+    	authorsLabel.setText("-");
+    	checkoutLimitLabel.setText("-");
+    	// TODO: clear book copies table
+    	
     }
     
 

@@ -242,6 +242,38 @@ public class SqliteDao implements DataAccessObject {
 
 		return null;
 	}
+	
+	@Override
+	public Book getBookByIsbn(String isbn) {
+		Book book = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+
+		try {
+			String bookQuery = "SELECT title, checkout_limit FROM book WHERE isbn=? LIMIT 1";
+			stmt = connection.prepareStatement(bookQuery);
+			stmt.setString(1, isbn);
+			rs = stmt.executeQuery();
+
+			if (rs.next()) {
+				book = new Book(isbn, rs.getString("title"), rs.getInt("checkout_limit"));
+				List<Author> authors = findAuthorsByIsbn(isbn);
+				List<BookCopy> bookCopies = findCopiesByIsbn(isbn);
+				
+				book.setAuthors(authors);
+
+				for (BookCopy bookCopy : bookCopies) {
+					book.addCopy(bookCopy);
+				}
+			}
+			stmt.close();
+			rs.close();
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+
+		return book;
+	}
 
 	@Override
 	public List<Author> findAuthorsByIsbn(String isbn) throws SQLException {

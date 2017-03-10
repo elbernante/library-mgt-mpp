@@ -18,6 +18,8 @@ public interface DataAccessObject extends Closable {
 	public List<Book> findAllBooks() throws SQLException;
 
 	public Book findBookByIsbn(String isbn) throws SQLException;
+	
+	public Book getBookByIsbn(String isbn);
 
 	public List<Author> findAuthorsByIsbn(String isbn) throws SQLException;
 
