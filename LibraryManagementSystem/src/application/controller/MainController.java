@@ -20,17 +20,17 @@ public class MainController implements Initializable {
 
 	@FXML
 	private void openBookListWindow(ActionEvent event) {
-		loadWindow("scene/BookList.fxml", "Manage Books", true);
+		loadWindow("scene/BookList.fxml", "Manage Books", true, true, null);
 	}
 
 	@FXML
 	private void openMemberListWindow(ActionEvent event) {
-		loadWindow("scene/MemberList.fxml", "Manage Members", true);
+		loadWindow("scene/MemberList.fxml", "Manage Members", true, true, null);
 	}
 
 	@FXML
 	private void openCheckoutWindow(ActionEvent event) {
-		loadWindow("scene/CheckoutForm.fxml", "Checkout Book", true);
+		loadWindow("scene/CheckoutForm.fxml", "Checkout Book", false, true, null);
 	}
 
 	@Override

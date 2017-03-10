@@ -39,7 +39,7 @@ public class WindowUtil {
 			stage.setTitle(title);
 			stage.setScene(new Scene(parent));
 			stage.setResizable(resizable);
-			callback.callback(loader);
+			if (callback != null) callback.callback(loader);
 			stage.initModality(isModal ? Modality.APPLICATION_MODAL : Modality.NONE);
 			stage.showAndWait();
 		} catch (IOException ex) {
