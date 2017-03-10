@@ -20,6 +20,8 @@ public interface DataAccessObject extends Closable {
 	public Book findBookByIsbn(String isbn) throws SQLException;
 	
 	public Book getBookByIsbn(String isbn);
+	
+	public BookCopy getBookCopyById(int id);
 
 	public List<Author> findAuthorsByIsbn(String isbn) throws SQLException;
 
@@ -32,4 +34,6 @@ public interface DataAccessObject extends Closable {
 	public void createBookCopy(BookCopy bookCopy) throws SQLException;
 	
 	public CheckoutEntry checkoutCopy(String userId, int copyId);
+	
+	public List<CheckoutEntry> getUserCheckoutLog(String userId);
 }

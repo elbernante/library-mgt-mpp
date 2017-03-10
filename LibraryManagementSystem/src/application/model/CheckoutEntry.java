@@ -2,6 +2,8 @@ package application.model;
 
 import java.time.LocalDate;
 
+import application.dao.base.DaoSession;
+
 public class CheckoutEntry {
 	
 	private int entryId;
@@ -11,9 +13,11 @@ public class CheckoutEntry {
 	private LocalDate dueDate;
 	private LocalDate returnDate;
 	private String status;
+	private BookCopy bookCopy;
 
 	public CheckoutEntry () {
-		
+		this.entryId = -1;
+		this.copyId = -1;
 	}
 	
 	public CheckoutEntry(int entryId, String userId, int copyId, LocalDate checkoutDate, LocalDate dueDate) {
@@ -52,6 +56,7 @@ public class CheckoutEntry {
 
 	public void setCopyId(int copyId) {
 		this.copyId = copyId;
+		this.bookCopy = null;
 	}
 
 	public LocalDate getCheckoutDate() {
@@ -84,5 +89,13 @@ public class CheckoutEntry {
 
 	public void setStatus(String status) {
 		this.status = status;
+	}
+	
+	public BookCopy getBookCopy() {
+		if (copyId < 0) return null;
+		if (bookCopy == null) {
+			bookCopy = DaoSession.getDb().getBookCopyById(copyId);
+		}
+		return bookCopy;
 	}
 }

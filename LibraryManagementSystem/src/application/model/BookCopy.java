@@ -1,7 +1,10 @@
 package application.model;
 
+import application.dao.base.DaoSession;
+
 public class BookCopy {
 	private Integer copyId;
+	private String isbn;
 	private Book book;
 	private boolean available;
 
@@ -18,7 +21,18 @@ public class BookCopy {
 		this.copyId = copyId;
 	}
 
+	public String getIsbn() {
+		return isbn;
+	}
+
+	public void setIsbn(String isbn) {
+		this.isbn = isbn;
+	}
+
 	public Book getBook() {
+		if (book == null && isbn !=null) {
+			book = DaoSession.getDb().getBookByIsbn(isbn);
+		}
 		return book;
 	}
 

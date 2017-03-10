@@ -275,6 +275,31 @@ public class SqliteDao implements DataAccessObject {
 
 		return book;
 	}
+	
+	@Override
+	public BookCopy getBookCopyById(int id) {
+		BookCopy copy = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+
+		try {
+			String query = "SELECT copy_id, book_isbn, available FROM book_copy WHERE copy_id=? LIMIT 1";
+			stmt = connection.prepareStatement(query);
+			stmt.setInt(1, id);
+			rs = stmt.executeQuery();
+
+			if (rs.next()) {
+				copy = new BookCopy(rs.getInt("copy_id"), rs.getInt("available") == 1);
+				copy.setIsbn(rs.getString("book_isbn"));
+			}
+			stmt.close();
+			rs.close();
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+
+		return copy;
+	}
 
 	@Override
 	public List<Author> findAuthorsByIsbn(String isbn) throws SQLException {
@@ -392,7 +417,7 @@ public class SqliteDao implements DataAccessObject {
 			rs.close();
 			
 			// update book copy
-			String updateCopy = "UPDATE book_copy SET available = 0 WHERE copy_id=?";
+			String updateCopy = "UPDATE book_copy SET available = 0 WHERE copy_id = ?";
 			stmt = connection.prepareStatement(updateCopy);
 			stmt.setInt(1, copyId);
 			stmt.executeUpdate();
@@ -404,5 +429,45 @@ public class SqliteDao implements DataAccessObject {
 		}
 		
 		return entry;
+	}
+	
+	@Override
+	public List<CheckoutEntry> getUserCheckoutLog(String userId) {
+		List<CheckoutEntry> logs = new ArrayList<>();
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+
+		try {
+			String query = "SELECT entry_id, user_id, copy_id, " + 
+		           	   "       checkout_date, " + 
+		           	   "       due_date, " +
+		           	   "       return_date, " + 
+		           	   "       status " +
+		           	   " FROM checkout_entry " +
+		           	   " WHERE user_id = ?";
+			stmt = connection.prepareStatement(query);
+			stmt.setString(1, userId);
+			rs = stmt.executeQuery();
+
+			while (rs.next()) {
+				Date checkoutDate = rs.getDate("checkout_date");
+				Date dueDate = rs.getDate("due_date");
+				Date returnDate =  rs.getDate("return_date");
+				logs.add(new CheckoutEntry(rs.getInt("entry_id"),
+						 rs.getString("user_id"), 
+						 rs.getInt("copy_id"), 
+						 (checkoutDate != null) ? checkoutDate.toLocalDate() : null, 
+						 (dueDate != null) ? dueDate.toLocalDate() : null,
+						 (returnDate != null) ? returnDate.toLocalDate() : null,
+						 rs.getString("status")));
+ 
+			}
+			stmt.close();
+			rs.close();
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		
+		return logs;
 	}
 }

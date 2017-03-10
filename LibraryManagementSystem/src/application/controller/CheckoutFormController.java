@@ -1,5 +1,7 @@
 package application.controller;
 
+import java.time.LocalDate;
+
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 
@@ -13,7 +15,6 @@ import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
@@ -81,6 +82,25 @@ public class CheckoutFormController {
     
     @FXML
     public void initialize() {
+    	initCheckoutTable();
+    	initCopiesTable();
+    }
+    
+    private void initCheckoutTable() {
+    	cktIsbnColumn.setCellValueFactory((p) -> {
+    		return new ReadOnlyStringWrapper(p.getValue().getBookCopy().getIsbn());
+    	});
+    	
+    	cktCopyIdColumn.setCellValueFactory(new PropertyValueFactory<>("copyId"));
+    	cktTitleColumn.setCellValueFactory((p) -> {
+    		return new ReadOnlyStringWrapper(p.getValue().getBookCopy().getBook().getTitle());
+    	});
+    	
+    	cktCheckoutDateCol.setCellValueFactory(new PropertyValueFactory<>("checkoutDate"));
+    	cktDueDateColumn.setCellValueFactory(new PropertyValueFactory<>("dueDate"));
+    }
+    
+    private void initCopiesTable() {
     	cpCopyIdColumn.setCellValueFactory(new PropertyValueFactory<>("copyId"));
     	cpIsAvailableColumn.setCellValueFactory((p) -> {
     		return new ReadOnlyStringWrapper(p.getValue().isAvailable() ? "Available" : "Checked out");
@@ -119,17 +139,11 @@ public class CheckoutFormController {
     		WindowUtil.messageBox("ISBN '" + query + "' not found.");
     		isbnField.selectAll();
     	} else {
+    		if(!b.isAvailable()) WindowUtil.messageBox("No available copies for checkout.");
     		copiesTable.requestFocus();
-    		// TODO: if no copies available, show message
     	}
     }
 
-    
-    @FXML
-    void tempAction(ActionEvent event) {
-
-    }
-    
     public void setMember(User member) {
     	this.member = member;
     	if (member == null) {
@@ -137,6 +151,7 @@ public class CheckoutFormController {
     	} else {
     		nameLabel.setText(member.getLastName() + ", " + member.getFirstName());
     		memberIdLabel.setText(member.getUserId());
+    		checkoutTable.getItems().setAll(member.getCheckoutLog());
     	}
     }
     
