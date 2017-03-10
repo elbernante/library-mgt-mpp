@@ -1,9 +1,6 @@
 package application.dao.base;
 
-import application.model.Author;
-import application.model.Book;
-import application.model.BookCopy;
-import application.model.User;
+import application.model.*;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -22,9 +19,9 @@ public interface DataAccessObject extends Closable {
 	public List<Book> findAllBooks() throws SQLException;
 
 	public Book findBookByIsbn(String isbn) throws SQLException;
-	
+
 	public Book getBookByIsbn(String isbn);
-	
+
 	public BookCopy getBookCopyById(int id);
 
 	public List<Author> findAuthorsByIsbn(String isbn) throws SQLException;
@@ -42,8 +39,8 @@ public interface DataAccessObject extends Closable {
 	public void updateAuthor(Author author) throws SQLException;
 
 	public void createBookCopy(BookCopy bookCopy) throws SQLException;
-	
+
 	public CheckoutEntry checkoutCopy(String userId, int copyId);
-	
+
 	public List<CheckoutEntry> getUserCheckoutLog(String userId);
 }

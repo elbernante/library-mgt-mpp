@@ -76,17 +76,21 @@ public class MemberListController implements Initializable {
 			return new ReadOnlyStringWrapper(param.getValue().getAddress().getPhone());
 		});
 
+		loadMembers();
+	}
+
+	private void loadMembers() {
 		List<User> users = DaoSession.getDb().findAllUsers();
 		memberTable.getItems().setAll(users);
 	}
 
 	private void showMemberForm(User targetUser) {
-		loadWindow("scene/Member.fxml", "Edit Member", false, true, (loader) -> {
+		loadWindow("scene/Member.fxml", targetUser != null ? "Edit Member" : "Create Member", false, true, (loader) -> {
 			MemberController controller = loader.<MemberController>getController();
 			if (targetUser != null) controller.setData(targetUser);
 			controller.onSave((user) -> {
 				System.out.println("User saved: " + user.getUserId());
-				// TODO: Update list
+				loadMembers();
 			});
 		});
 	}

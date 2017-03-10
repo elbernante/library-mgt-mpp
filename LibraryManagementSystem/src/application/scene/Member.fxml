@@ -8,33 +8,33 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane fx:id="memberForm" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="370.0" prefWidth="380.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.MemberController">
+<BorderPane fx:id="memberForm" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="506.0" prefWidth="380.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.MemberController">
 	<center>
 		<VBox prefHeight="285.0" prefWidth="360.0" BorderPane.alignment="CENTER">
 			<children>
             <JFXTextField fx:id="memberId" labelFloat="true" layoutX="10.0" layoutY="254.0" promptText="Member ID">
                <VBox.margin>
-                  <Insets bottom="10.0" top="10.0" />
+                  <Insets bottom="20.0" top="20.0" />
                </VBox.margin>
             </JFXTextField>
 				<JFXTextField fx:id="firstName" labelFloat="true" promptText="First Name">
 					<VBox.margin>
-						<Insets bottom="10.0" top="10.0" />
+						<Insets bottom="20.0" top="20.0" />
 					</VBox.margin>
 				</JFXTextField>
 				<JFXTextField fx:id="lastName" labelFloat="true" promptText="Last Name">
 					<VBox.margin>
-						<Insets bottom="10.0" top="10.0" />
+						<Insets bottom="20.0" top="20.0" />
 					</VBox.margin>
 				</JFXTextField>
 				<JFXTextField fx:id="street" labelFloat="true" promptText="Street">
 					<VBox.margin>
-						<Insets bottom="10.0" top="10.0" />
+						<Insets bottom="20.0" top="20.0" />
 					</VBox.margin>
 				</JFXTextField>
 				<JFXTextField fx:id="city" labelFloat="true" promptText="City">
 					<VBox.margin>
-						<Insets bottom="10.0" top="10.0" />
+						<Insets bottom="20.0" top="20.0" />
 					</VBox.margin>
 				</JFXTextField>
 				<HBox prefHeight="34.0" prefWidth="360.0">
@@ -43,12 +43,12 @@
 						<JFXTextField fx:id="zip" labelFloat="true" prefHeight="30.0" prefWidth="77.0" promptText="Zip" />
 					</children>
 					<VBox.margin>
-						<Insets bottom="10.0" top="10.0" />
+						<Insets bottom="20.0" top="20.0" />
 					</VBox.margin>
 				</HBox>
 				<JFXTextField fx:id="phone" labelFloat="true" promptText="Phone">
 					<VBox.margin>
-						<Insets bottom="10.0" top="10.0" />
+						<Insets bottom="20.0" top="20.0" />
 					</VBox.margin>
 				</JFXTextField>
 			</children>
@@ -58,7 +58,7 @@
 		<Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
 	</padding>
 	<bottom>
-		<HBox alignment="BOTTOM_RIGHT" prefHeight="37.0" prefWidth="360.0" BorderPane.alignment="CENTER">
+		<HBox alignment="CENTER_RIGHT" prefHeight="44.0" prefWidth="360.0" BorderPane.alignment="CENTER">
 			<children>
 				<JFXButton fx:id="okButton" onAction="#okAction" prefHeight="30.0" prefWidth="80.0" text="OK" />
 				<JFXButton fx:id="cancelButton" onAction="#cancelAction" prefHeight="30.0" prefWidth="80.0" text="Cancel" />
