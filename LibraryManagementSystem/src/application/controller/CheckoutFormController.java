@@ -8,11 +8,13 @@ import application.model.BookCopy;
 import application.model.CheckoutEntry;
 import application.model.User;
 import application.util.WindowUtil;
+import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 public class CheckoutFormController {
 	
@@ -72,6 +74,14 @@ public class CheckoutFormController {
 
     @FXML
     private TableColumn<BookCopy, String> cpActionColumn;
+    
+    @FXML
+    public void initialize() {
+    	cpCopyIdColumn.setCellValueFactory(new PropertyValueFactory<>("copyId"));
+    	cpIsAvailableColumn.setCellValueFactory((p) -> {
+    		return new ReadOnlyStringWrapper(p.getValue().isAvailable() ? "Available" : "Checked out");
+    	});
+    }
 
     @FXML
     void searchMemberIdAction(ActionEvent event) {    	
@@ -90,12 +100,11 @@ public class CheckoutFormController {
     void searchIsbnAction(ActionEvent event) {
     	String query = isbnField.getText();
     	Book b = DaoSession.getDb().getBookByIsbn(query);
-    	
+    	setBook(b);
     	if (b == null) {
-    		WindowUtil.messageBox("ISBN " + query + " not found.");
+    		WindowUtil.messageBox("ISBN '" + query + "' not found.");
     		isbnField.selectAll();
     	} else {
-    		setBook(b);
     		copiesTable.requestFocus();
     	}
     }
@@ -131,6 +140,7 @@ public class CheckoutFormController {
         	isbnLabel.setText(book.getIsbn());
         	authorsLabel.setText(book.getAuthorNames());
         	checkoutLimitLabel.setText(book.getCheckoutLimit() + " days");
+        	copiesTable.getItems().setAll(book.getCopies());
     	}
     }
     
@@ -139,8 +149,7 @@ public class CheckoutFormController {
     	isbnLabel.setText("-");
     	authorsLabel.setText("-");
     	checkoutLimitLabel.setText("-");
-    	// TODO: clear book copies table
-    	
+    	copiesTable.getItems().setAll();
     }
     
 

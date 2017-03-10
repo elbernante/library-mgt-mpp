@@ -159,7 +159,7 @@
                   <TableView fx:id="copiesTable" prefHeight="188.0" prefWidth="622.0">
                      <columns>
                         <TableColumn fx:id="cpCopyIdColumn" editable="false" prefWidth="75.0" text="Copy ID" />
-                        <TableColumn fx:id="cpIsAvailableColumn" editable="false" prefWidth="122.0" text="Is Available" />
+                        <TableColumn fx:id="cpIsAvailableColumn" editable="false" prefWidth="122.0" text="Availability" />
                         <TableColumn fx:id="cpActionColumn" editable="false" prefWidth="164.0" text="Action" />
                      </columns>
                      <VBox.margin>
