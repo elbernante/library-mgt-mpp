@@ -156,7 +156,6 @@ public class CheckoutFormController {
     }
     
     private void checkoutCopy(BookCopy bookCopy) {
-    	
     		if (member == null) {
     			WindowUtil.messageBox("Select a member to checkout the book");
     			memberIdField.requestFocus();
@@ -169,14 +168,14 @@ public class CheckoutFormController {
     			return;
     		}
     		
-    		// TODO: add entry to user checkout log
-    		// TODO: refresh checkout log table
+    		// add entry to user checkout log
+    		member.addCheckoutEntry(entry);
+    		checkoutTable.getItems().add(entry);
     		
     		// update current copy
  			bookCopy.setAvailable(false);
  			
  			// refresh UIs
- 			
  			// dirty hack to refresh table
  			copiesTable.getColumns().get(0).setVisible(false);
  			copiesTable.getColumns().get(0).setVisible(true);

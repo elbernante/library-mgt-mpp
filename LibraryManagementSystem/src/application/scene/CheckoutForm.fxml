@@ -64,11 +64,11 @@
                   </GridPane>
 						<TableView fx:id="checkoutTable" prefHeight="188.0" prefWidth="622.0">
 							<columns>
-								<TableColumn fx:id="cktIsbnColumn" editable="false" prefWidth="75.0" text="ISBN" />
-								<TableColumn fx:id="cktCopyIdColumn" editable="false" prefWidth="64.0" text="Copy ID" />
-								<TableColumn fx:id="cktTitleColumn" editable="false" prefWidth="205.0" text="Title" />
-								<TableColumn fx:id="cktCheckoutDateCol" editable="false" prefWidth="108.0" text="Checkout Date" />
-                        <TableColumn fx:id="cktDueDateColumn" editable="false" prefWidth="157.0" text="Due Date" />
+								<TableColumn fx:id="cktIsbnColumn" editable="false" prefWidth="145.0" text="ISBN" />
+								<TableColumn fx:id="cktCopyIdColumn" editable="false" prefWidth="59.0" text="Copy ID" />
+								<TableColumn fx:id="cktTitleColumn" editable="false" prefWidth="327.0" text="Title" />
+								<TableColumn fx:id="cktCheckoutDateCol" editable="false" prefWidth="129.0" text="Checkout Date" />
+                        <TableColumn fx:id="cktDueDateColumn" editable="false" prefWidth="116.0" text="Due Date" />
 							</columns>
 							<VBox.margin>
 								<Insets />
