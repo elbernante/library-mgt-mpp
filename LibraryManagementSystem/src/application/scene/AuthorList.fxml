@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane fx:id="authorForm" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="1252.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.AuthorListController">
+   <center>
+      <TableView fx:id="authorTable" onMousePressed="#handleMousePressed" prefHeight="400.0" prefWidth="1036.0" BorderPane.alignment="CENTER">
+        <columns>
+          <TableColumn fx:id="idCol" prefWidth="75.0" text="ID" />
+          <TableColumn fx:id="firstNameCol" prefWidth="118.0" text="First Name" />
+            <TableColumn fx:id="lastNameCol" prefWidth="116.0" text="Last Name" />
+            <TableColumn fx:id="streetCol" prefWidth="163.0" text="Street" />
+            <TableColumn fx:id="cityCol" prefWidth="113.0" text="City" />
+            <TableColumn fx:id="stateCol" prefWidth="81.0" text="State" />
+            <TableColumn fx:id="zipCol" prefWidth="79.0" text="Zip" />
+            <TableColumn fx:id="phoneCol" prefWidth="110.0" text="Phone Number" />
+            <TableColumn fx:id="credentialsCol" prefWidth="109.0" text="Credentials" />
+            <TableColumn fx:id="bioCol" prefWidth="267.0" text="Short Bio" />
+        </columns>
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
+      </TableView>
+   </center>
+   <top>
+      <VBox alignment="CENTER" prefHeight="0.0" prefWidth="1232.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label text="Author Management">
+               <font>
+                  <Font name="System Bold" size="24.0" />
+               </font>
+            </Label>
+            <HBox alignment="CENTER_LEFT" prefHeight="0.0" prefWidth="1232.0">
+               <children>
+                  <JFXButton onAction="#openAuthorAddWindow" text="+ Add" />
+               </children>
+            </HBox>
+         </children>
+         <BorderPane.margin>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </BorderPane.margin>
+      </VBox>
+   </top>
+   <bottom>
+      <HBox fx:id="actionPane" alignment="CENTER_RIGHT" prefHeight="55.0" prefWidth="1252.0" BorderPane.alignment="CENTER">
+         <children>
+            <JFXButton onAction="#handleOkAction" prefHeight="30.0" prefWidth="80.0" text="OK" />
+            <JFXButton onAction="#close" prefHeight="30.0" prefWidth="80.0" text="Cancel" />
+         </children>
+      </HBox>
+   </bottom>
+</BorderPane>

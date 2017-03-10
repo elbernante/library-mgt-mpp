@@ -4,6 +4,7 @@ package application.controller;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import application.util.Constants;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
@@ -18,15 +19,15 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 public class MemberController implements Initializable {
-	
+
 	public static interface OnSaveDelegate {
 		public void onSave(User user);
 	}
-	
+
 	private OnSaveDelegate onSaveDelegate = null;
-	
+
 	private User user = null;
-	
+
 	@FXML
     private BorderPane memberForm;
 
@@ -47,7 +48,7 @@ public class MemberController implements Initializable {
 
     @FXML
     private JFXComboBox<String> state;
-    
+
     @FXML
     private JFXTextField zip;
 
@@ -70,7 +71,7 @@ public class MemberController implements Initializable {
     	readFields();
     	if (!DaoSession.getDb().saveNewUser(user)) {
     		WindowUtil.messageBox("Error saving new user!");
-    	} else {    		
+    	} else {
     		close();
     		if (onSaveDelegate != null) onSaveDelegate.onSave(user);
     	}
@@ -78,8 +79,7 @@ public class MemberController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		String [] state_codes = {"AL", "AK", "AZ", "AR", "CA", "CO", "CT", "DE", "FL", "GA", "HI", "ID", "IL", "IN", "IA", "KS", "KY", "LA", "ME", "MD", "MA", "MI", "MN", "MS", "MO", "MT", "NE", "NV", "NH", "NJ", "NM", "NY", "NC", "ND", "OH", "OK", "OR", "PA", "RI", "SC", "SD", "TN", "TX", "UT", "VT", "VA", "WA", "WV", "WI", "WY"};
-		state.getItems().addAll(state_codes);
+		state.getItems().addAll(Constants.STATE_CODES);
 	}
 
 	public void setData(User data) {
@@ -93,15 +93,15 @@ public class MemberController implements Initializable {
 		zip.setText(user.getAddress().getZip());
 		phone.setText(user.getAddress().getPhone());
 	}
-	
+
 	public void onSave(OnSaveDelegate delegate) {
 		this.onSaveDelegate = delegate;
 	}
-	
+
 	private void close() {
 		((Stage) memberForm.getScene().getWindow()).close();
 	}
-	
+
 	private void readFields() {
 		if (user == null) {
 			user = new User();

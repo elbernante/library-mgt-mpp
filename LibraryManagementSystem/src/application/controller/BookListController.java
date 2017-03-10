@@ -44,7 +44,8 @@ public class BookListController implements Initializable {
 	}
 
 	private void showAddBookForm(Book selectedBook) {
-		loadWindow("scene/BookAdd.fxml", "Edit Book", false, true, (loader -> {
+		String formTitle = selectedBook == null ? "Create Book" : "Edit Book";
+		loadWindow("scene/BookAdd.fxml", formTitle, false, true, (loader -> {
 			BookAddController controller = loader.<BookAddController>getController();
 			if (selectedBook != null) {
 				controller.setData(selectedBook);

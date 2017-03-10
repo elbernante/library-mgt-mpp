@@ -1,8 +1,12 @@
 package application.dao.base;
 
-import java.util.List;
+import application.model.Author;
+import application.model.Book;
+import application.model.BookCopy;
+import application.model.User;
+
 import java.sql.SQLException;
-import application.model.*;
+import java.util.List;
 
 public interface DataAccessObject extends Closable {
 	public void getPerson();
@@ -30,6 +34,12 @@ public interface DataAccessObject extends Closable {
 	public void createBook(Book book) throws SQLException;
 
 	public void updateBook(Book book) throws SQLException;
+
+	public List<Author> findAllAuthors() throws SQLException;
+
+	public void createAuthor(Author author) throws SQLException;
+
+	public void updateAuthor(Author author) throws SQLException;
 
 	public void createBookCopy(BookCopy bookCopy) throws SQLException;
 	

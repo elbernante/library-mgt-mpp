@@ -4,7 +4,7 @@ import application.Main;
 import application.Session;
 import application.dao.base.DaoSession;
 import application.model.User;
-import application.util.Hash;
+import application.util.StringUtil;
 import application.util.WindowUtil;
 
 import com.jfoenix.controls.JFXButton;
@@ -30,19 +30,19 @@ public class AuthenticationController {
 
 	@FXML
 	private Pane authenticationForm;
-	
+
 	@FXML
     private Label welcome;
-	
+
 	@FXML
     private Label errorMessage;
 
 	@FXML
-	void signIn(ActionEvent event) {		
+	void signIn(ActionEvent event) {
 		if (!authenticate()) return;
-		
+
 		close();
-		
+
 		User user = Session.getCurrentUser();
 		if (user.isAdmin()) {
 			WindowUtil.loadWindow("scene/Main.fxml", Main.appName, false);
@@ -52,7 +52,7 @@ public class AuthenticationController {
 			WindowUtil.messageBox("No roles assigned to user");
 		}
 	}
-	
+
 	@FXML
 	void showWelcome(KeyEvent event) {
 		if (!welcome.isVisible()) showErrorMessage(false);
@@ -62,16 +62,16 @@ public class AuthenticationController {
 		Stage stage = (Stage) authenticationForm.getScene().getWindow();
 		stage.close();
 	}
-	
+
 	private void showErrorMessage(boolean show){
 		welcome.setVisible(!show);
 		errorMessage.setVisible(show);
 	}
-	
+
 	private boolean authenticate() {
 		String userId = username.getText();
-		String passwordHash = Hash.md5(password.getText());
-		
+		String passwordHash = StringUtil.md5(password.getText());
+
 		showErrorMessage(false);
 		if (DaoSession.getDb().authenticate(userId, passwordHash)) {
     		Session.setCurrentUser(userId);

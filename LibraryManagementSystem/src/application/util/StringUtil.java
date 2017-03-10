@@ -1,10 +1,13 @@
 package application.util;
 
+import application.model.Author;
+
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Collection;
 
-public class Hash {
+public class StringUtil {
 	public static String md5(String input) {
 		String md5 = null;
 		if(null == input) return null;

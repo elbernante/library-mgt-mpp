@@ -2,10 +2,13 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="682.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.BookListController">
 	<center>
@@ -17,14 +20,23 @@
 			</columns>
 		</TableView>
 	</center>
-	<top>
-		<ToolBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-			<items>
-				<JFXButton onAction="#openBookAddWindow" text="Add New Book" />
-			</items>
-			<BorderPane.margin>
-				<Insets />
-			</BorderPane.margin>
-		</ToolBar>
-	</top>
+   <top>
+      <VBox alignment="CENTER" prefHeight="0.0" prefWidth="682.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label text="Book Management">
+               <font>
+                  <Font name="System Bold" size="24.0" />
+               </font>
+            </Label>
+            <HBox alignment="CENTER_LEFT" prefHeight="29.0" prefWidth="682.0">
+               <children>
+      				<JFXButton alignment="CENTER" onAction="#openBookAddWindow" text="+ Add" />
+               </children>
+            </HBox>
+         </children>
+         <BorderPane.margin>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </BorderPane.margin>
+      </VBox>
+   </top>
 </BorderPane>

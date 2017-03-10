@@ -313,6 +313,7 @@ public class SqliteDao implements DataAccessObject {
 		ResultSet rs = stmt.executeQuery();
 
 		while (rs.next()) {
+			Integer id = rs.getInt("author_id");
 			String firstName = rs.getString("firstname");
 			String lastName = rs.getString("lastname");
 			String street = rs.getString("street");
@@ -325,6 +326,7 @@ public class SqliteDao implements DataAccessObject {
 
 			Address address = new Address(street, city, state, zip);
 			Author author = new Author(firstName, lastName, address, phoneNumber, credentials, bio);
+			author.setId(id);
 
 			results.add(author);
 		}
@@ -357,6 +359,16 @@ public class SqliteDao implements DataAccessObject {
 		stmt.setString(2, book.getTitle());
 		stmt.setInt(3, book.getCheckoutLimit());
 		stmt.execute();
+
+		if (book.getAuthors() != null) {
+			for (Author author : book.getAuthors()) {
+				stmt = connection.prepareStatement("INSERT INTO book_author (book_isbn, author_id) VALUES (?, ?)");
+				stmt.setString(1, book.getIsbn());
+				stmt.setInt(2, author.getId());
+				stmt.execute();
+			}
+		}
+
 		stmt.close();
 	}
 
@@ -367,16 +379,97 @@ public class SqliteDao implements DataAccessObject {
 		stmt.setString(1, book.getTitle());
 		stmt.setString(2, book.getIsbn());
 		stmt.execute();
+
+		stmt = connection.prepareStatement("DELETE FROM book_author WHERE book_isbn = ?");
+		stmt.setString(1, book.getIsbn());
+		stmt.execute();
+
+		if (book.getAuthors() != null) {
+			for (Author author : book.getAuthors()) {
+				stmt = connection.prepareStatement("INSERT INTO book_author (book_isbn, author_id) VALUES (?, ?)");
+				stmt.setString(1, book.getIsbn());
+				stmt.setInt(2, author.getId());
+				stmt.execute();
+			}
+		}
+
+		stmt.close();
+	}
+
+	@Override
+	public List<Author> findAllAuthors() throws SQLException {
+		List<Author> results = new ArrayList<>();
+		PreparedStatement stmt = connection.prepareStatement("SELECT * FROM author");
+		ResultSet rs = stmt.executeQuery();
+		while (rs.next()) {
+			Author author = new Author(
+					rs.getString("firstname"),
+					rs.getString("lastname"),
+					new Address(rs.getString("street"), rs.getString("city"), rs.getString("state"), rs.getString("zip")),
+					rs.getString("phone"),
+					rs.getString("credentials"),
+					rs.getString("bio")
+			);
+			author.setId(rs.getInt("author_id"));
+			results.add(author);
+		}
+		stmt.close();
+		rs.close();
+		return results;
+	}
+
+	@Override
+	public void createAuthor(Author author) throws SQLException {
+		String sql = "INSERT INTO author (firstname, lastname, street, city, state, zip, phone, credentials, bio) " +
+				"VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		PreparedStatement stmt = connection.prepareStatement(sql);
+		stmt.setString(1, author.getFirstName());
+		stmt.setString(2, author.getLastName());
+		stmt.setString(3, author.getAddress().getStreet());
+		stmt.setString(4, author.getAddress().getCity());
+		stmt.setString(5, author.getAddress().getState());
+		stmt.setString(6, author.getAddress().getZip());
+		stmt.setString(7, author.getPhoneNumber());
+		stmt.setString(8, author.getCredentials());
+		stmt.setString(9, author.getShortBio());
+		stmt.execute();
+		stmt.close();
+	}
+
+	@Override
+	public void updateAuthor(Author author) throws SQLException {
+		String sql = "UPDATE author SET " +
+				"firstname = ?, " +
+				"lastname = ?, " +
+				"street = ?, " +
+				"city = ?, " +
+				"state = ?, " +
+				"zip = ?, " +
+				"phone = ?, " +
+				"credentials = ?, " +
+				"bio = ?" +
+				"WHERE author_id = ?";
+		PreparedStatement stmt = connection.prepareStatement(sql);
+		stmt.setString(1, author.getFirstName());
+		stmt.setString(2, author.getLastName());
+		stmt.setString(3, author.getAddress().getStreet());
+		stmt.setString(4, author.getAddress().getCity());
+		stmt.setString(5, author.getAddress().getState());
+		stmt.setString(6, author.getAddress().getZip());
+		stmt.setString(7, author.getPhoneNumber());
+		stmt.setString(8, author.getCredentials());
+		stmt.setString(9, author.getShortBio());
+		stmt.setInt(10, author.getId());
+		stmt.execute();
 		stmt.close();
 	}
 
 	@Override
 	public void createBookCopy(BookCopy bookCopy) throws SQLException {
-		String sql = "INSERT INTO book_copy (copy_id, book_isbn, available) VALUES (?, ?, ?)";
+		String sql = "INSERT INTO book_copy (book_isbn, available) VALUES (?, ?)";
 		PreparedStatement stmt = connection.prepareStatement(sql);
-		stmt.setInt(1, bookCopy.getCopyId());
-		stmt.setString(2, bookCopy.getBook().getIsbn());
-		stmt.setInt(3, 1);
+		stmt.setString(1, bookCopy.getBook().getIsbn());
+		stmt.setInt(2, 1);
 		stmt.execute();
 		stmt.close();
 	}

@@ -1,68 +1,73 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.layout.*?>
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="524.0"
-			prefWidth="380.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXTextArea?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane fx:id="authorAddForm" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="591.0" prefWidth="380.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.AuthorAddController">
 	<center>
 		<VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
 			<children>
-				<JFXTextField labelFloat="true" promptText="First Name">
+				<JFXTextField fx:id="firstNameField" labelFloat="true" promptText="First Name">
 					<VBox.margin>
-						<Insets bottom="10.0" top="10.0"/>
+						<Insets bottom="20.0" top="20.0" />
 					</VBox.margin>
 				</JFXTextField>
-				<JFXTextField labelFloat="true" promptText="Last Name">
+				<JFXTextField fx:id="lastNameField" labelFloat="true" promptText="Last Name">
 					<VBox.margin>
-						<Insets bottom="10.0" top="10.0"/>
+						<Insets bottom="20.0" top="20.0" />
 					</VBox.margin>
 				</JFXTextField>
-				<JFXTextField labelFloat="true" promptText="Street">
+				<JFXTextField fx:id="streetField" labelFloat="true" promptText="Street">
 					<VBox.margin>
-						<Insets bottom="10.0" top="10.0"/>
+						<Insets bottom="20.0" top="20.0" />
 					</VBox.margin>
 				</JFXTextField>
-				<JFXTextField labelFloat="true" promptText="City">
+				<JFXTextField fx:id="cityField" labelFloat="true" promptText="City">
 					<VBox.margin>
-						<Insets bottom="10.0" top="10.0"/>
+						<Insets bottom="20.0" top="20.0" />
 					</VBox.margin>
 				</JFXTextField>
 				<HBox prefHeight="34.0" prefWidth="360.0">
 					<children>
-						<JFXComboBox prefHeight="30.0" prefWidth="307.0" promptText="State"/>
-						<JFXTextField labelFloat="true" prefHeight="30.0" prefWidth="77.0" promptText="Zip"/>
+						<JFXComboBox fx:id="stateField" prefHeight="30.0" prefWidth="307.0" promptText="State" />
+						<JFXTextField fx:id="zipField" labelFloat="true" prefHeight="30.0" prefWidth="77.0" promptText="Zip" />
 					</children>
 					<VBox.margin>
-						<Insets bottom="10.0" top="10.0"/>
+						<Insets bottom="20.0" top="20.0" />
 					</VBox.margin>
 				</HBox>
-				<JFXTextField labelFloat="true" promptText="Phone">
+				<JFXTextField fx:id="phoneField" labelFloat="true" promptText="Phone">
 					<VBox.margin>
-						<Insets bottom="10.0" top="10.0"/>
+						<Insets bottom="20.0" top="20.0" />
 					</VBox.margin>
 				</JFXTextField>
-				<JFXTextField labelFloat="true" promptText="Credentials">
+				<JFXTextField fx:id="credentialsField" labelFloat="true" promptText="Credentials">
 					<VBox.margin>
-						<Insets bottom="10.0" top="10.0"/>
+						<Insets bottom="20.0" top="20.0" />
 					</VBox.margin>
 				</JFXTextField>
-				<JFXTextArea labelFloat="true" prefHeight="112.0" prefWidth="360.0" promptText="Short Bio">
+				<JFXTextArea fx:id="bioField" labelFloat="true" prefHeight="112.0" prefWidth="360.0" promptText="Short Bio">
 					<VBox.margin>
-						<Insets bottom="10.0" top="15.0"/>
+						<Insets bottom="20.0" top="20.0" />
 					</VBox.margin>
 				</JFXTextArea>
 			</children>
 		</VBox>
 	</center>
 	<padding>
-		<Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+		<Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
 	</padding>
 	<bottom>
-		<HBox alignment="BOTTOM_RIGHT" prefHeight="37.0" prefWidth="360.0" BorderPane.alignment="CENTER">
+		<HBox alignment="BOTTOM_RIGHT" prefHeight="47.0" prefWidth="360.0" BorderPane.alignment="CENTER">
 			<children>
-				<JFXButton prefHeight="30.0" prefWidth="80.0" text="OK"/>
-				<JFXButton prefHeight="30.0" prefWidth="80.0" text="Cancel"/>
+				<JFXButton onAction="#createNewAuthor" prefHeight="30.0" prefWidth="80.0" text="OK" />
+				<JFXButton onAction="#cancel" prefHeight="30.0" prefWidth="80.0" text="Cancel" />
 			</children>
 		</HBox>
 	</bottom>

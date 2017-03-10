@@ -25,15 +25,15 @@ public class WindowUtil {
 			Logger.getLogger(WindowUtil.class.getName()).log(Level.SEVERE, null, ex);
 		}
 	}
-	
+
 	public static void loadWindow(String loc, String title, boolean resizable, FxmlLoadCallback callback) {
 		loadWindow(loc, title, resizable, false, callback);
 	}
-	
+
 	public static void loadWindow(String loc, String title, boolean resizable, boolean isModal, FxmlLoadCallback callback) {
 		try {
 			FXMLLoader loader = new FXMLLoader(ClassLoader.getSystemClassLoader().getResource("application/" + loc));
-			
+
 			Parent parent = loader.load();
 			Stage stage = new Stage(StageStyle.DECORATED);
 			stage.setTitle(title);
@@ -46,9 +46,16 @@ public class WindowUtil {
 			Logger.getLogger(WindowUtil.class.getName()).log(Level.SEVERE, null, ex);
 		}
 	}
-	
+
 	public static void messageBox(String message) {
 		new Alert(Alert.AlertType.INFORMATION, message).showAndWait();
+	}
+
+	public static void showErrorMessage(String msg) {
+		Alert alert = new Alert(Alert.AlertType.ERROR);
+		alert.setHeaderText(null);
+		alert.setContentText(msg);
+		alert.showAndWait();
 	}
 
 }

@@ -18,6 +18,14 @@ public class Author {
 		this.shortBio = shortBio;
 	}
 
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
 	public String getFirstName() {
 		return firstName;
 	}
@@ -64,5 +72,21 @@ public class Author {
 
 	public void setShortBio(String shortBio) {
 		this.shortBio = shortBio;
+	}
+
+	public String getStreet() {
+		return address.getStreet();
+	}
+
+	public String getCity() {
+		return address.getCity();
+	}
+
+	public String getState() {
+		return address.getState();
+	}
+
+	public String getZip() {
+		return address.getZip();
 	}
 }

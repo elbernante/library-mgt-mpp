@@ -26,13 +26,13 @@
                   <Insets bottom="20.0" top="20.0" />
                </VBox.margin>
             </JFXTextField>
-				<HBox fx:id="bookAuthors" prefHeight="35.0" prefWidth="364.0">
+				<HBox prefHeight="35.0" prefWidth="364.0">
 					<children>
-						<JFXTextField editable="false" labelFloat="true" prefHeight="25.0" prefWidth="314.0" promptText="Authors">
+						<JFXTextField fx:id="bookAuthors" editable="false" labelFloat="true" prefHeight="25.0" prefWidth="314.0" promptText="Authors">
                      <HBox.margin>
                         <Insets />
                      </HBox.margin></JFXTextField>
-						<JFXButton prefHeight="27.0" prefWidth="82.0" text="Choose" />
+						<JFXButton onAction="#chooseAuthors" prefHeight="27.0" prefWidth="82.0" text="Choose" />
 					</children>
 					<VBox.margin>
 						<Insets bottom="10.0" top="20.0" />
